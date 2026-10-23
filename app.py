@@ -2,15 +2,32 @@ import streamlit as st
 import json
 import re
 import os
+import streamlit as st
+import json
+import re
+import os
 from io import StringIO
 import PyPDF2
 import docx
-from openai import OpenAI
 from thefuzz import process
+from dotenv import load_dotenv
+
+# 1. 从环境变量加载配置，绝不在代码里写死密码
+load_dotenv()
+LLM_API_KEY = os.getenv("LLM_API_KEY")
+LLM_BASE_URL = os.getenv("LLM_BASE_URL")
+LLM_MODEL = os.getenv("LLM_MODEL", "gemini-2.5-flash")
+
+# 2. 核心开关：检查系统里到底有没有这个密钥
+has_api_key = bool(LLM_API_KEY)
+
+# 3. 只有在确定有密钥的情况下，才去真正连接 Gemini
+if has_api_key:
+    import google.generativeai as genai
+    genai.configure(api_key=LLM_API_KEY)
 
 # --- SETUP & DATA LOADING ---
-st.set_page_config(page_title="Future Skills Intake", layout="centered")
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY", "mock-key-for-ui-testing"))
+st.set_page_config(page_title="ShiftHappens", layout="centered")
 
 @st.cache_data
 def load_data():
@@ -88,7 +105,7 @@ def extract_skills_llm(text, retries=1):
                 return None
 
 # --- UI ---
-st.title("Future-Ready Skills Intake")
+st.title("ShiftHappens")
 st.warning("ℹ️ This tool supports your career decisions using AI estimates. You are fully in control of your profile.")
 
 tab1, tab2 = st.tabs(["Path A: I have a CV", "Path B: Cold Start (No CV)"])
