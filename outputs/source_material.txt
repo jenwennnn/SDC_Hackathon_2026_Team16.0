@@ -1,0 +1,227 @@
+=== CATEGORY: accounting_support ===
+[cost analyst]
+Cost analysts prepare regular costs, budgeting analyses and reports in order to contribute to the overall cost planning and forecasting activities of a business. They review and reconcile key balance sheets and identify new opportunities to save costs.
+
+[payroll clerk]
+Payroll clerks manage the time sheets and pay checks of the employees and ensure the accuracy and correctness of the information. They check overtime, sick days and vacations and distribute the pay checks.
+
+[bookkeeper]
+Bookkeepers record and assemble the day-to-day financial transactions of an organisation or company, consisting usually of sales, purchases, payments and receipts. They ensure all financial transactions are documented in the appropriate (day) book and general ledger, and that they are balanced out. Bookkeepers prepare the recorded books and ledgers with financial transactions for an accountant to then analyse balance sheets and income statements.
+
+[accountant]
+Accountants review and analyse financial statements, budgets, financial reports, and business plans in order to check for irregularities resulting from error or fraud, and provide their clients with financial advice in matters such as financial forecasting and risk analysis. They may audit financial data, resolve insolvency cases, prepare tax returns and provide other tax-related advice in reference to current legislation.
+
+=== CATEGORY: admin_clerical ===
+[legal administrative assistant]
+Legal administrative assistants carry out the daily administrative activities of firms, offices of notaries, and companies. They perform activities such as writing mails, phone-answering and typing/keyboarding. They combine these activities with specific knowledge and understanding of the procedures and codes managed in legal business affairs.
+
+[rooms division manager]
+Rooms division managers are in charge of managing and coordinating a team of employees at front desk, reservations, housekeeping and maintenance departments.
+
+[administrative assistant]
+Administrative assistants provide administrative and office support for supervisors. They perform a variety of tasks, such as answering telephone calls, receiving and directing visitors, ordering office supplies, maintaining the office facilities running smoothly, and ensuring that equipment and appliances work properly.
+
+[medical administrative assistant]
+Medical administrative assistants work very closely with health professionals. They provide office support such as correspondence, fixing appointments and answering queries of patients.
+
+[telephone switchboard operator]
+Telephone switchboard operators establish telephone connections by using switchboards and consoles. They also answer customer inquiries and service problem reports.
+
+[secretary of state]
+Secretaries of state assist heads of government departments, such as ministers, and aid in the supervision of proceedings in the department. They assist in the direction of policies, operations, and department staff, and perform planning, resource allocation, and decision-making duties.
+
+[fundraising assistant]
+Fundraising assistants provide administrative support for fundraising managers. They target potential donators or sponsors by applying surveys. They process donations and grant payments, maintain electronic and paper filing systems for all grants and donations, acknowledge donations and write thank you letters and maintain fundraising records.
+
+[purchaser]
+Purchasers select and purchase stock, materials, services or goods. They organise tender procedures and select suppliers.
+
+[executive assistant]
+Executive assistants are advanced administrative professionals who work with top-level executives or in international facilities in various industries. They organise meetings, organise and maintain files, arrange travel, train staff members, communicate in other languages, and manage the day-to-day operations of the office.
+
+[bank teller]
+Bank tellers deal most frequently with customers of the bank. They promote the banks products and services, and provide information about the customers personal accounts and related transfers, deposits, savings etc. They order bank cards and checks for the customers, receive and balance cash and checks and ensure compliance with internal policies. They work on client accounts, deal with payments and manage the use of vaults and safe deposit boxes.
+
+[front line medical receptionist]
+Front line medical receptionists greet clients and patients as they arrive at the medical facility and check them in, collect patient notes and make appointments work under the supervision and direction of healthcare institution manager.
+
+[government minister]
+Government ministers function as decision-makers in national or regional governments, and head government ministries. They perform legislative duties and supervise the operation of their department.
+
+[education administrator]
+Education administrators organise and manage the administration, support systems and (student) activities of an education institution. They perform a range of administrative, secretarial, financial and otherwise supportive tasks to enable the efficient and cost-effective running of the school. They may assist in student recruitment, alumni relations, funding, work on committees including academic boards and quality insurance.
+
+[secretary]
+Secretaries perform a variety of administrative tasks to help keep an organisation run smoothly. They answer telephone calls, draft and send e-mails, maintain diaries, arrange appointments, take messages, file documents, organise and service meetings, and manage databases.
+
+[secretary general]
+Secretaries general head international governmental or nongovernmental organisations. They supervise staff, direct policy and strategy development, and function as main representative of the organisation.
+
+[medical transcriptionist]
+Medical transcriptionists interpret dictated information from the doctor or other healthcare professionals and convert it into documents. They create, format and edit medical records for patients based on the provided data and take care to apply punctuation and grammar rules.
+
+[office clerk]
+Office clerks are responsible for performing clerical and administrative duties in an office setting and support of business operations within a department. They assist all the administrative staff, secretaries, and assistants by sorting mail, filing forms and documents, answering phones, greeting clients and scheduling meetings.
+
+[court jury coordinator]
+Court jury coordinators aid lawyers in the preparation of the trial by researching jury members. They aid in the development of trial strategies, analyse the jury's behaviour during a trial, and advise lawyers on proceedings. They also assist in preparing witnesses and constructing arguments.
+
+[hospitality establishment receptionist]
+Hospitality establishment receptionists provide first point of contact and assistance to the guests of a hospitality establishment. They are also responsible for taking bookings, processing payments and giving information.
+
+[investment fund management assistant]
+Investment fund management assistants provide clients with financial planning advice on financial products and serve as the main contact point for new and old clients. They assist and perform preparatory work in the creation and administration of funds and help with the implementation of fund management decisions made by the portfolio or fund manager.
+
+[insurance clerk]
+Insurance clerks perform general clerical and administrative duties in an insurance company, other service institution, for a self-employed insurance agent or broker or for a government institution. They offer assistance and provide information about insurances to customers and they manage the paperwork of insurance agreements.
+
+[tourist information officer]
+Tourist information officers provide information and advice to travellers about local attractions, events, travelling and accommodation.
+
+[back office specialist]
+Back office specialists perform operations of administrative and organisational nature in a financial company, in support of the front office. They process administration, take care of financial transactions, manage data and company documents and perform supportive tasks and other diverse back office operations in coordination with other parts of the company.
+
+[foreign exchange cashier]
+Foreign exchange cashiers process cash transactions from clients in national and foreign currencies. They provide information on the conditions and exchange rates for buying and selling foreign currencies, make deposits of money, record all foreign exchange transactions and check for money validity.
+
+[spokesperson]
+Spokespeople speak on behalf of companies or organisations. They use communication strategies to represent clients through public announcements and conferences. They promote their clients in a positive light and work to increase an understanding of their activities and interests.
+
+[public relations officer]
+Public relations officers represent a company or organisation to stakeholders and the public. They use communications strategies to promote an understanding of the activities and image of their clients in a favourable way.
+
+[foreign language correspondence clerk]
+Foreign language correspondence clerks read and reply to a company's correspondence in foreign languages. They also perform clerical duties.
+
+[statistical assistant]
+Statistical assistants collect data and use statistical formulas to execute statistical studies and create reports. They create charts, graphs and surveys.
+
+[human resources assistant]
+Human resources assistants provide support in all the processes and efforts carried by human resources managers. They help in the preparation of recruitment processes by scanning CVs and narrowing the selection to the most suitable candidates. They perform administrative tasks, prepare communications and letters, and perform the tabulation of the surveys and assessments carried out by the department.
+
+[assistant stage director]
+Assistant stage directors support the needs of the stage director and the production for each assigned stage production, and serve as a liaison between performers, theatre staff and stage directors. They take notes, provide feedback, coordinate the rehearsal schedule, take blocking, rehearse or review scenes, prepare or distribute actor notes, and facilitate communication between designers, production staff, and stage director.
+
+[veterinary receptionist]
+Veterinary receptionists provide reception and office/administrative support in a veterinary practice, scheduling appointments and receiving clients, sale and advice on animal related products, in accordance with national legislation.
+
+[receptionist]
+Receptionists are responsible for the reception area of a business. They answer the phone, greet guests, pass information, respond to inquiries and instruct visitors. They are the first point of contact for clients and customers.
+
+[investment clerk]
+Investment clerks assist with the administration of investments such as stocks, bonds or other securities and perform general clerical duties in the investment sector of a financial company.
+
+=== CATEGORY: content_marketing_support ===
+[online community manager]
+Online community managers provide and maintain an interactive environment facilitated by applications such as social media, forums and wikis. They maintain the relations between different digital communities.
+
+[online sales channel manager]
+Online sales channel managers define the sales programme for e-commerce such as goods sold via e-mail, internet and social media. They also assist in planning the online sales strategy and identifying marketing opportunities. Online sales channel managers also analyse competitor sites, review the site performance and analytics.
+
+[media integration operator]
+Media Integration operators control the overall image, media content and/or the synchronisation and distribution of communication signals between the execution of different disciplines of a performance based on the artistic or creative concept, in interaction with the performers. Their work is influenced by and influences the results of other operators. Therefore, the operators work closely together with the designers, operators and performers. Media Integration operators prepare the connections between the different operation boards, supervise the setup, steer the technical crew, configure the equipment and operate the media integration system. Their work is based on plans, instructions and other documentation.
+
+[online marketer]
+Online marketers use e-mail, internet and social media in order to market goods and brands.
+
+[marketing assistant]
+Marketing assistants support all the efforts and operations carried out by marketing managers and officers. They prepare reports in relation to the marketing operations needed by other departments, especially account and financial divisions. They ensure that resources needed by the managers to perform their job are in place.
+
+[broadcasting programme director]
+Broadcasting programme directors make the programme schedule. They decide how much broadcast time a programme gets and when it is aired, based on a few factors like, ratings, viewer demographics, etc.
+
+[technical communicator]
+Technical communicators prepare clear, concise and professional communication from product developers to users of the products such as online help, user manuals, white papers, specifications and industrial videos. For this, they analyse products, legal requirements, markets, customers and users. They develop information and media concepts, standards, structures and software tool support. They plan the content creation and media production processes, develop written, graphical, video or other contents, generate media output, release their information products and receive feedback from the users.
+
+[web content manager]
+Web content managers curate or create content for a web platform according to the long-term strategic goals, policies and procedures for an organisation's online content or their customers. They control and monitor compliance with standards, legal and privacy regulations and ensure web optimisation. They are also responsible for integrating the work of writers and designers to produce a final layout which is compatible with corporate standards.
+
+[blogger]
+Bloggers write online articles on a wide range of subjects such as politics, fashion, economics and sports. They can relate objective facts, but often they also give their opinion on the related topic. Bloggers also interact with their readers via comments.
+
+[advertising copywriter]
+Advertising copywriters are responsible for the written or verbal design of advertisements and commercials. They write slogans, catchphrases and work closely together with advertising artists.
+
+[communication manager]
+Communication managers are responsible for developing communication strategies in order to promote the organization's mission, services or product. They coordinate communication projects and manage the communications issued by the company for both the internal and the external clients. They supervise internal communications, ensuring that communications reach each one of the employees and further questions can be answered. For external communications, they coordinate coherence among the messages transmitted in mails, printed materials, press articles, and corporate promotional materials. They strive to maintain truthful communications.
+
+[radio producer]
+Radio producers are responsible for organising the making of radio shows. They oversee aspects of radio shows such as content, audio production, resource planning and personnel supervision.
+
+[digital marketing manager]
+Digital marketing managers are responsible for the elaboration of the company's digital marketing strategy with the goal of improving brand recognition and brand awareness, in line with the company's mission and vision. They oversee the execution of digital marketing and communication strategies involving the use of social media, email marketing, marketing automation, search engine optimisation, online events and online advertisement through data driven methodologies and by measuring and monitoring digital marketing KPIs in order to promptly implement corrective action plan. They manage and interpret competitors and consumers' data and conduct research on market conditions.
+
+[lyricist]
+Lyricists interpret the style of a music piece and write words to accompany the melody. They work together with the music composer.
+
+=== CATEGORY: customer_service ===
+[call centre agent]
+Call centre agents handle incoming or outgoing customer calls for a business. They call existing and prospective customers to promote goods and services. They also obtain sales and arrange sales visits.
+
+[ICT help desk manager]
+ICT help desk managers monitor the delivery of technical support services to clients according to the predefined deadlines. They plan and organise the user support actions and troubleshoot ICT problems and issues. ICT help desk managers supervise the help desk team ensuring that the customers get the appropriate feedback and support. They also participate in developing customer service guidelines and in reinforcing the team.
+
+[customer service representative]
+Customer service representatives handle complaints and are responsible for maintaining overall goodwill between an organisation and its customers. They manage data regarding customer satisfaction and report it.
+
+[call centre analyst]
+Call centre analysts examine data regarding incoming or outgoing customer calls. They prepare reports and visualisation.
+
+[call centre quality auditor]
+Call centre quality auditors listen to calls from the call centre operators, recorded or live, in order to assess compliance with protocols and quality parameters. They grade the employees and provide feedback on the issues that require improvement. They interpret and spread quality parameters received by the management.
+
+[post office counter clerk]
+Post office counter clerks sell products and services at a post office. They assist customers with picking up and sending mail. Post office counter clerks also sell financial products.
+
+[call centre supervisor]
+Call centre supervisors oversee call centre employees, manage projects and understand technical aspects of the call centre activities.
+
+[client relations manager]
+Client relations managers act as the middle person between a company and its customers. They ensure that the customers are satisfied by providing them with guidance and explanation on their accounts and services received by the company. They also have possible other tasks such as developing plans or delivering proposals.
+
+[travel agency manager]
+Travel agency managers are in charge of managing employees and activities of a travel agency. They organise, advertise and sell tourist offers and travel deals for specific regions.
+
+[cabin crew manager]
+Cabin crew managers are responsible for motivating the cabin crew team to surpass passengers' expectations and for the application of safety regulations on board the plane.
+
+[railway passenger service agent]
+Railway passenger service agents spend time with railway station customers, answer their questions and react quickly and safely to unexpected situations. They provide information, mobility assistance, and security in railway stations. They provide accurate and up to date information on train arrival and departure times, train connections, and help customers plan their travels.
+
+[after-sales service technician]
+After-sales service technicians provide after-sales service support to customers, such as the installation, maintenance and repair of the sold products. They take corrective actions to ensure customers’ satisfaction, resolve technical product-related issues and write customer summary reports.
+
+[contact centre supervisor]
+Contact centre supervisors oversee and coordinate the activities of contact centre employees. They ensure that daily operations run smoothly through resolving issues, instructing and training employees and supervising tasks.
+
+[ICT help desk agent]
+ICT help desk agents provide technical assistance to computer users, answer questions or solve computer problems for clients via telephone or electronically. They provide assistance concerning the use of computer hardware and software.
+
+[customer contact centre information clerk]
+Customer contact centre information clerks provide information to customers via the telephone and other media such as email. They answer inquiries about a company's or oganisation's services, products and policies.
+
+[service manager]
+Service managers are responsible for the supervision and coordination of the provision of different professional and technical services to customers. They ensure a smooth interaction with clients and high levels of satisfaction post-service. This occupation includes the provision of policing, correctional, library, legal and fire services.
+
+[checkout supervisor]
+Checkout supervisors oversee cashiers in department stores and other big stores.
+
+[call centre manager]
+Call centre managers set the objectives of the service per month, week, and day. They perform micromanagement of the results obtained in the centre in order to proactively react with plans, trainings, or motivational plans depending on the problems faced by the service. They strive for achievement of KPIs such as minimum operating time, sales per day, and compliance with quality parameters.
+
+[contact centre manager]
+Contact centre managers coordinate and plan the daily operations of contact centres. They ensure that customer inquiries are satisfied efficiently and according to policies. They manage employees, resources and procedures to improve best practices and achieve high levels of customer satisfaction.
+
+[train attendant]
+Train attendants work on trains to provide services to passengers such as welcoming passengers, answering their questions and serving meals.
+
+=== CATEGORY: data_entry ===
+[data entry clerk]
+Data entry clerks update, maintain and retrieve information held on computer systems. They prepare source data for computer entry by compiling and sorting information, process customer and account source documents by reviewing data for deficiencies and verify entered customer and account data.
+
+[data entry supervisor]
+Data entry supervisors manage the day-to-day operations of data entry staff. They organise the workflow and tasks.
+
+[ICT operations manager]
+ICT operations managers coordinate ICT services and infrastructure ensuring that the organisation has the required infrastructural resources. They also plan and monitor stages of either a business process or a computer process, negotiate contracts and take mitigation action in case of non-fulfilment of agreements. They oversee the day-to-day tasks involving infrastructure components, ICT systems and software.
+

@@ -1,0 +1,75 @@
+category,occupation_uri,occupation_label,isco_group
+admin_clerical,http://data.europa.eu/esco/occupation/0264b794-3771-47aa-a675-78bf13b62ee7,legal administrative assistant,3342
+admin_clerical,http://data.europa.eu/esco/occupation/02e19186-458f-40eb-9e78-31c656d12ac7,rooms division manager,1411
+admin_clerical,http://data.europa.eu/esco/occupation/044d78cc-f62f-4532-83a5-8e04f2889652,administrative assistant,3343
+admin_clerical,http://data.europa.eu/esco/occupation/045f05f2-4ff8-46b2-9d08-e12a81657498,medical administrative assistant,3344
+admin_clerical,http://data.europa.eu/esco/occupation/0bf68df5-e808-4c27-abf2-6f85440f2d7f,telephone switchboard operator,4223
+admin_clerical,http://data.europa.eu/esco/occupation/0ee67d5e-8de9-48f0-97c5-ba23d486b1e9,secretary of state,1111
+admin_clerical,http://data.europa.eu/esco/occupation/1d6fbb43-f4c7-4839-8099-55eae5d424a5,fundraising assistant,3343
+admin_clerical,http://data.europa.eu/esco/occupation/29fa406d-de89-4515-be8d-0fe7bda993f1,purchaser,3323
+admin_clerical,http://data.europa.eu/esco/occupation/2a04a1df-a3b9-403e-a245-e7f93fdddd44,executive assistant,3343
+admin_clerical,http://data.europa.eu/esco/occupation/2ff9e53c-6e7f-42af-8d71-b5dd7f283089,bank teller,4211
+admin_clerical,http://data.europa.eu/esco/occupation/3469cbcc-5332-41dc-977a-29cf1b7ef7be,front line medical receptionist,4226
+admin_clerical,http://data.europa.eu/esco/occupation/404a50e9-61ce-448d-a695-bbfc697a0727,government minister,1111
+admin_clerical,http://data.europa.eu/esco/occupation/55b4faa3-286f-4fc8-ac67-8bbb97d08820,education administrator,3343
+admin_clerical,http://data.europa.eu/esco/occupation/5ac377d2-e1d0-4911-a299-b4ef2782a0ba,secretary,4120
+admin_clerical,http://data.europa.eu/esco/occupation/5c5b153e-4bf8-4f3d-973d-12fabf306d12,secretary general,1112
+admin_clerical,http://data.europa.eu/esco/occupation/5d5fde2c-47ce-4dcd-99f0-ba651b7b908f,medical transcriptionist,3344
+admin_clerical,http://data.europa.eu/esco/occupation/6c999fc7-c6b7-4ef3-a4b9-af124a1783a2,office clerk,4110
+admin_clerical,http://data.europa.eu/esco/occupation/76884a72-d8b8-4819-bd40-71d6420a9a42,court jury coordinator,2619
+admin_clerical,http://data.europa.eu/esco/occupation/82025c02-9082-416c-998b-f51eb0359ee6,hospitality establishment receptionist,4224
+admin_clerical,http://data.europa.eu/esco/occupation/934c3572-37f4-4cdd-a4a4-017f5f7809e4,investment fund management assistant,2412
+admin_clerical,http://data.europa.eu/esco/occupation/9a39a143-d93c-4093-ba3b-47fb67ade318,insurance clerk,4312
+admin_clerical,http://data.europa.eu/esco/occupation/9b35eab1-2adc-4057-a620-181862656a19,tourist information officer,4221
+admin_clerical,http://data.europa.eu/esco/occupation/b2e81332-0972-4e0f-9a4d-1d15c9c9513b,back office specialist,4312
+admin_clerical,http://data.europa.eu/esco/occupation/b7fc1cd1-0d6d-4e9e-8a9f-c3270201be81,foreign exchange cashier,4312
+admin_clerical,http://data.europa.eu/esco/occupation/b89ba3a8-f03a-46b8-ac54-c87d7204aad0,spokesperson,2432
+admin_clerical,http://data.europa.eu/esco/occupation/c0489e22-6a1b-4e52-974a-eb71bbb42134,public relations officer,2432
+admin_clerical,http://data.europa.eu/esco/occupation/c8505fa5-0a33-4143-bd87-f24f569e8813,foreign language correspondence clerk,4419
+admin_clerical,http://data.europa.eu/esco/occupation/d2e63d7e-2605-4af1-bb7d-b1ed9ad08825,statistical assistant,3314
+admin_clerical,http://data.europa.eu/esco/occupation/d8ed1703-9c03-4ea0-83cc-b6169bc54ffd,human resources assistant,4416
+admin_clerical,http://data.europa.eu/esco/occupation/e1106f6d-81fc-44f8-af94-8b7d2763065c,assistant stage director,3435
+admin_clerical,http://data.europa.eu/esco/occupation/f00154a5-d27f-429e-b9a4-1d65c672cee7,veterinary receptionist,4226
+admin_clerical,http://data.europa.eu/esco/occupation/f7b04542-d8c7-42db-8475-e63b507cce82,receptionist,4226
+admin_clerical,http://data.europa.eu/esco/occupation/fd0801c9-809a-4cfd-98ed-6c5860c163f2,investment clerk,4312
+data_entry,http://data.europa.eu/esco/occupation/6353b3e8-e8f2-4ecb-b230-186927139892,data entry clerk,4132
+data_entry,http://data.europa.eu/esco/occupation/af355ac4-dd89-44df-99a6-bba70202d6fe,data entry supervisor,3341
+data_entry,http://data.europa.eu/esco/occupation/f0ca39a8-1e30-487c-95f9-ef2d5e734adc,ICT operations manager,1330
+customer_service,http://data.europa.eu/esco/occupation/0ededdc2-050a-4ec3-8e70-6295105fcd19,call centre agent,5244
+customer_service,http://data.europa.eu/esco/occupation/1242d99a-47f1-4a62-b884-33746db8a6ca,ICT help desk manager,3512
+customer_service,http://data.europa.eu/esco/occupation/13d1b2b4-99dd-44da-9734-c9f74bae18f7,customer service representative,4225
+customer_service,http://data.europa.eu/esco/occupation/30ca97f4-a4fd-4189-a781-ac08f6b09b78,call centre analyst,3341
+customer_service,http://data.europa.eu/esco/occupation/580c98d4-fb97-4597-864c-54140f058f1b,call centre quality auditor,3341
+customer_service,http://data.europa.eu/esco/occupation/6a6e174e-cffa-49a9-9f2f-aa39c81cdee5,post office counter clerk,4211
+customer_service,http://data.europa.eu/esco/occupation/6aa78e46-ce22-421f-8a75-e915ac63c9d0,call centre supervisor,3341
+customer_service,http://data.europa.eu/esco/occupation/725090a7-9943-4dae-8079-a6999d21ddba,client relations manager,2431
+customer_service,http://data.europa.eu/esco/occupation/9358775a-3769-4327-bf25-6c0d9d69d192,travel agency manager,1439
+customer_service,http://data.europa.eu/esco/occupation/95f56fc4-99f9-49da-b942-1dfbc857e933,cabin crew manager,5111
+customer_service,http://data.europa.eu/esco/occupation/9653fb92-ad48-4865-a471-f270302fa93b,railway passenger service agent,5112
+customer_service,http://data.europa.eu/esco/occupation/98e58946-3227-4f6c-a5d1-5892fe76883d,after-sales service technician,2433
+customer_service,http://data.europa.eu/esco/occupation/9d2aae3e-cbfe-409f-86cc-7cef9cd0435a,contact centre supervisor,3341
+customer_service,http://data.europa.eu/esco/occupation/aaeec9a7-dc57-4485-890c-86b3eef735f9,ICT help desk agent,3512
+customer_service,http://data.europa.eu/esco/occupation/b7b75eb6-34bc-462d-b412-eed393cc1397,customer contact centre information clerk,4222
+customer_service,http://data.europa.eu/esco/occupation/bcc2c1db-f969-4355-bebf-4878ff6c2a94,service manager,1349
+customer_service,http://data.europa.eu/esco/occupation/c76dda38-938c-404e-8a6d-78c8705eebc0,checkout supervisor,5222
+customer_service,http://data.europa.eu/esco/occupation/dd25a2b0-add0-4ae2-bd85-bb644e0d0c39,call centre manager,1439
+customer_service,http://data.europa.eu/esco/occupation/f5166c6b-3467-4fc4-9343-d12e870d9def,contact centre manager,1439
+customer_service,http://data.europa.eu/esco/occupation/fa1aef45-49a4-4446-94b4-e2b563d9d025,train attendant,5111
+accounting_support,http://data.europa.eu/esco/occupation/84871c2a-abd1-45eb-b03a-65e51a26fd84,cost analyst,2411
+accounting_support,http://data.europa.eu/esco/occupation/ade351da-7bda-424e-8682-bbdcab2a25be,payroll clerk,4313
+accounting_support,http://data.europa.eu/esco/occupation/c3aae59e-1441-4b3e-bdd1-6da50dc7cf42,bookkeeper,3313
+accounting_support,http://data.europa.eu/esco/occupation/eda0d957-3c3c-4139-b89a-a18bc9e18897,accountant,2411
+content_marketing_support,http://data.europa.eu/esco/occupation/137b1d11-c4bc-4016-89ba-45345d4c71f0,online community manager,2432
+content_marketing_support,http://data.europa.eu/esco/occupation/1dd7c3cb-2d58-4dad-ae15-c9081174ab7e,online sales channel manager,1221
+content_marketing_support,http://data.europa.eu/esco/occupation/22585d1e-48aa-45a6-a8c3-d072b4ff1b31,media integration operator,3435
+content_marketing_support,http://data.europa.eu/esco/occupation/356227b9-2263-4dbd-81e9-7dfc6d3f3af7,online marketer,2431
+content_marketing_support,http://data.europa.eu/esco/occupation/47e81c7f-2d04-4a60-a8ff-9913c36d8344,marketing assistant,2431
+content_marketing_support,http://data.europa.eu/esco/occupation/7f0d69cf-8b02-4a84-865a-37585dea9b43,broadcasting programme director,3435
+content_marketing_support,http://data.europa.eu/esco/occupation/8cb59bc4-1f39-477e-beea-effed12d186c,technical communicator,2641
+content_marketing_support,http://data.europa.eu/esco/occupation/a74f6c51-37e5-423e-aa5b-044e98663027,web content manager,2513
+content_marketing_support,http://data.europa.eu/esco/occupation/ac80b511-fd22-4edf-8570-e531704778bd,blogger,2642
+content_marketing_support,http://data.europa.eu/esco/occupation/b1ab3572-fa2f-4624-8eac-3c3d986d237b,advertising copywriter,2431
+content_marketing_support,http://data.europa.eu/esco/occupation/cd7b838c-51f6-41ec-9067-bb974c0f991b,communication manager,1222
+content_marketing_support,http://data.europa.eu/esco/occupation/ce7d3362-5383-47d1-b66f-57b021c3d862,radio producer,2654
+content_marketing_support,http://data.europa.eu/esco/occupation/dc97adbe-f807-4ad8-8f3c-c24b3416cdef,digital marketing manager,1221
+content_marketing_support,http://data.europa.eu/esco/occupation/e55e1a62-eab4-4829-a71e-e0d294cacf6b,lyricist,2641
