@@ -34,6 +34,7 @@ import results_page as rp
 import signals_logic as sl
 import trend_bridge as tb
 import signals_views as sv
+import intro
 import theme
 
 # ---------- Config (secrets come from environment variables, never from code) ----------
@@ -363,14 +364,18 @@ def batch_choices():
 
 def render_header(step):
     theme.hero()
-    cols = st.columns(len(STEPS))
-    for i, (col, name) in enumerate(zip(cols, STEPS), start=1):
-        label = f"{i}. {name}"
-        if i == step:
-            col.button(label, key=f"stepbar_{i}", type="primary", use_container_width=True)
-        else:
-            col.button(label, key=f"stepbar_{i}", use_container_width=True,
-                       disabled=not reachable(i), on_click=jump, args=(i,))
+    prev = st.session_state.get("nav_prev_step", step)
+    st.session_state["nav_prev_step"] = step
+    theme.nav_capsule_style(step - 1, len(STEPS), step - prev)
+    with st.container(key="navtrack"):
+        cols = st.columns(len(STEPS), gap=None)
+        for i, (col, name) in enumerate(zip(cols, STEPS), start=1):
+            label = f"{i}. {name}"
+            if i == step:
+                col.button(label, key=f"stepbar_{i}", type="primary", width="stretch")
+            else:
+                col.button(label, key=f"stepbar_{i}", width="stretch",
+                           disabled=not reachable(i), on_click=jump, args=(i,))
     st.progress(step / len(STEPS))
 
 
@@ -433,7 +438,7 @@ def render_data_controls(profile, compact=False):
         with st.expander("Trend data and updates"):
             batch_id = _batch_panel(profile, scenario, ids, batch_id)
         with c2:
-            st.caption(_trend_line(batch_id) + " Two scenarios, both estimates.")
+            st.caption(_trend_line(batch_id))
     st.session_state["scenario_pref"] = scenario
     st.session_state["batch_pref"] = batch_id
     return scenario, batch_id
@@ -760,11 +765,16 @@ def render_footer():
     st.divider()
     st.caption(f"CV skills are extracted with Google Gemini ({LLM_MODEL}) only when you upload "
                "a CV. Matching uses a fixed, explainable formula on ESCO data, not an AI model. "
-               "Sources: ESCO (European Commission); trend signals are a synthetic demo dataset.")
+               "Sources: ESCO (European Commission); trend signals are a synthetic demo dataset. "
+               "All results are estimates to support your decision; you decide.")
 
 
 # ---------- Main ----------
 init_state()
+if not intro.done():
+    intro.render()
+    render_footer()
+    st.stop()
 step = st.session_state["step"]
 
 if step in (3, 4, 5) and st.session_state["final_profile"]:
