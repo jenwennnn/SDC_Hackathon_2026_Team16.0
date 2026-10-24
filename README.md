@@ -249,13 +249,13 @@ Statement: [`submission/SDC2026_16.0_Runpod_POU.pdf`](submission/SDC2026_16.0_Ru
 
 ## Team
 
-| Name        | Role        | GitHub      |
-| ----------- | ----------- | ----------- |
-| To be added | To be added | To be added |
-| To be added | To be added | To be added |
-| To be added | To be added | To be added |
-| To be added | To be added | To be added |
-| To be added | To be added | To be added |
+| Name                   | 
+| -----------            | 
+| WONG PYNVEN            | 
+| JONATHAN YEK EI HENN   | 
+| James Keo Lin Shun     | 
+| JAMES KEO LIN SHUN     | 
+| NG JEN WEN             | 
 
 ---
 
