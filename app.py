@@ -357,9 +357,38 @@ def page_start():
             """, unsafe_allow_html=True)
             st.caption("Select your current occupation to initialize with an industry-standard skill set, then tailor it.")
             
+<<<<<<< HEAD
             template_options = {t["display_name"]["en"]: t for t in occupation_templates}
             selected_occ = st.selectbox("Your current occupation", list(template_options.keys()))
             years_exp = st.selectbox("Years of experience", ["0-1", "1-3", "3-5", "5-10", "10+"])
+=======
+        st.session_state['draft_profile'] = {
+            "skills": draft_skills,
+            "current_role": {
+                "title": selected_occ,
+                "industry": "General",
+                "years_experience": years_exp,
+                "tasks": [task["label"]["en"] for task in tpl["tasks"]],
+                "task_type_map": {task["label"]["en"]: task["task_type"] for task in tpl["tasks"]}
+            }
+        }
+        st.session_state['source'] = 'cold_start_template'
+
+# --- HUMAN IN THE LOOP & CONFIRMATION ---
+if 'draft_profile' in st.session_state:
+    st.divider()
+    st.header("Confirm Your Profile")
+    st.write("Review and adjust your daily tasks and skills. Unmapped skills are flagged.")
+    
+    prof = st.session_state['draft_profile']
+    
+    # Task Confirmation
+    st.subheader("Daily Tasks")
+    confirmed_tasks = []
+    for t in prof["current_role"]["tasks"]:
+        if st.checkbox(t, value=True):
+            confirmed_tasks.append(t)
+>>>>>>> d00e4cf8476f947e6b556b38d504fe32fa3dfe69
             
             st.write("")
             st.write("")
@@ -391,6 +420,7 @@ def apply_edits(skills, edited_df):
         skills[idx]["level"] = clamp_level(row["Level"], skills[idx]["level"])
         skills[idx]["_keep"] = bool(row["Keep"])
 
+<<<<<<< HEAD
 
 def page_review():
     draft = st.session_state["draft"]
@@ -545,3 +575,39 @@ st.markdown("""
         Powered by Google Gemini 2.5 for text parsing · Deterministic ESCO Framework by European Commission · ShiftHappens v2.0
     </div>
 """, unsafe_allow_html=True)
+=======
+    if st.button("Finalise Profile"):
+        from datetime import datetime, timezone
+        final_profile = {
+            "source": st.session_state['source'],
+            "skills": confirmed_skills,              # 第1层(不动)
+            "current_role": {                        # 第2层
+                "title": prof["current_role"]["title"],
+                "industry": prof["current_role"]["industry"],
+                "years_experience": prof["current_role"].get("years_experience", ""),
+                "tasks": confirmed_tasks,
+                "task_details": [
+                    {"label": t, "task_type": prof["current_role"].get("task_type_map", {}).get(t)}
+                    for t in confirmed_tasks
+                ]
+            },
+            "goals": {                               # 第3层
+                "mode": mode,
+                "interests": interests,
+                "sdg_importance": sdg_importance
+            },
+            "constraints": {                         # 第4层
+                "hours_per_week": hours,
+                "budget": budget,
+                "timeline_months": timeline,
+                "language": language
+            },
+            "risk_preference": risk,                 # 第5层
+            "scenario_focus": scenario,
+            "meta": {"created_at": datetime.now(timezone.utc).isoformat()}
+        }
+        st.session_state['final_profile'] = final_profile
+        st.json(final_profile)
+        st.download_button("Download JSON", data=json.dumps(final_profile, indent=2),
+                           file_name="skills_profile.json")
+>>>>>>> d00e4cf8476f947e6b556b38d504fe32fa3dfe69
