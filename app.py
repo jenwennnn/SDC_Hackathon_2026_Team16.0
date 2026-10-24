@@ -159,7 +159,8 @@ with tab2:
                 "title": selected_occ,
                 "industry": "General",
                 "years_experience": years_exp,
-                "tasks": [task["label"]["en"] for task in tpl["tasks"]]
+                "tasks": [task["label"]["en"] for task in tpl["tasks"]],
+                "task_type_map": {task["label"]["en"]: task["task_type"] for task in tpl["tasks"]}
             }
         }
         st.session_state['source'] = 'cold_start_template'
@@ -244,7 +245,11 @@ if 'draft_profile' in st.session_state:
                 "title": prof["current_role"]["title"],
                 "industry": prof["current_role"]["industry"],
                 "years_experience": prof["current_role"].get("years_experience", ""),
-                "tasks": confirmed_tasks
+                "tasks": confirmed_tasks,
+                "task_details": [
+                    {"label": t, "task_type": prof["current_role"].get("task_type_map", {}).get(t)}
+                    for t in confirmed_tasks
+                ]
             },
             "goals": {                               # 第3层
                 "mode": mode,
