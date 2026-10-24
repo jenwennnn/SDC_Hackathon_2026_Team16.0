@@ -2,7 +2,7 @@
 signals_logic.py
 ----------------
 The ONE place where signal numbers are turned into colours, labels and arrows.
-Every view (My Day, Movers board, later the Compass) must call these
+Every view (task compass, market board) must call these
 functions, so the same task can never look different in two views.
 
 No Streamlit code in here on purpose: it can be tested on its own.
@@ -19,11 +19,32 @@ DEMAND_UP_ABOVE = 0.15     # demand_index > +0.15 -> rising
 DEMAND_DOWN_BELOW = -0.15  # demand_index < -0.15 -> falling
 # --------------------------------------------------------------------------
 
+# ---- Task compass baskets (team assumption, shown in the app) ------------
+# automation pressure = exposure x replace share, replace share = (1 - augment) / 2
+# (the same pieces trend_bridge.py uses for the role outlook)
+TAKEOVER_PRESSURE_MIN = 0.30   # pressure >= 0.30            -> AI may take over
+ASSIST_EXPOSURE_MIN = 0.30     # else exposure >= 0.30       -> AI will assist you
+#                                else                         -> stays mostly human
+# --------------------------------------------------------------------------
+
+# Status colours (Vercel Geist style). Everything else in the app is black and white.
 RISK_STYLE = {
-    "low":     {"label": "Low impact",    "color": "#2e9e5b"},
-    "medium":  {"label": "Medium impact", "color": "#e0a100"},
-    "high":    {"label": "High impact",   "color": "#d64545"},
-    "unknown": {"label": "No data",       "color": "#9aa0a6"},
+    "low":     {"label": "Low impact",    "color": "#398E4A"},
+    "medium":  {"label": "Medium impact", "color": "#F5A623"},
+    "high":    {"label": "High impact",   "color": "#E5484D"},
+    "unknown": {"label": "No data",       "color": "#8F8F8F"},
+}
+
+BASKETS = ["take_over", "assist", "human"]
+BASKET_STYLE = {
+    "take_over": {"label": "AI may take over", "color": "#F5A623", "ink": "#171717",
+                  "tint": "#FFF4E0", "meaning": "AI can already do much of this work."},
+    "assist":    {"label": "AI will assist you", "color": "#0070F3", "ink": "#FFFFFF",
+                  "tint": "#EBF4FF", "meaning": "AI speeds this up; you still check and decide."},
+    "human":     {"label": "Stays mostly human", "color": "#398E4A", "ink": "#FFFFFF",
+                  "tint": "#EDF7EF", "meaning": "Little AI exposure today. Strengths to build on."},
+    "unknown":   {"label": "No data", "color": "#8F8F8F", "ink": "#FFFFFF",
+                  "tint": "#FAFAFA", "meaning": "This task has no category yet."},
 }
 
 DEMAND_STYLE = {
@@ -147,6 +168,23 @@ def risk_level(exposure):
     return "medium"
 
 
+def replace_share(augment_index):
+    """0 = AI only assists with this kind of task, 1 = AI replaces it."""
+    return (1 - augment_index) / 2
+
+
+def task_basket(exposure, augment_index):
+    """Which compass basket a task falls in. Returns (basket, pressure)."""
+    if exposure is None or augment_index is None:
+        return "unknown", None
+    pressure = round(exposure * replace_share(augment_index), 3)
+    if pressure >= TAKEOVER_PRESSURE_MIN:
+        return "take_over", pressure
+    if exposure >= ASSIST_EXPOSURE_MIN:
+        return "assist", pressure
+    return "human", pressure
+
+
 def demand_direction(demand_index):
     if demand_index > DEMAND_UP_ABOVE:
         return "up"
@@ -171,6 +209,8 @@ def compute_view_fields(signal, scenario="steady", prev_signal=None):
             "demand_dir": "flat", "arrow": "", "demand_label": "",
             "confidence": None, "reason_en": "No trend data for this task.",
             "demand_change": None, "exposure_change": None,
+            "augment_index": None, "replace_share": None,
+            "pressure": None, "basket": "unknown",
         }
 
     exposure = signal["exposure_steady"] if scenario == "steady" else signal["exposure_rapid"]
@@ -184,6 +224,7 @@ def compute_view_fields(signal, scenario="steady", prev_signal=None):
                          else prev_signal["exposure_rapid"])
         exposure_change = round(exposure - prev_exposure, 2)
 
+    basket, pressure = task_basket(exposure, signal["augment_index"])
     return {
         "task_type": signal["task_type"], "has_data": True,
         "risk": risk,
@@ -198,6 +239,10 @@ def compute_view_fields(signal, scenario="steady", prev_signal=None):
         "reason_en": signal["reason_en"],
         "demand_change": demand_change,
         "exposure_change": exposure_change,
+        "augment_index": signal["augment_index"],
+        "replace_share": round(replace_share(signal["augment_index"]), 3),
+        "pressure": pressure,
+        "basket": basket,
     }
 
 

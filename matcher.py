@@ -16,8 +16,16 @@ Scoring (fully explainable):
   Weights: essential 1.0, optional 0.5 (from future_roles.json)
   Trend (optional): rising skills get more weight, declining skills less (TREND_STRENGTH)
   Role outlook (optional, only with trend): average trend of the role's skills
-  that have a trend score, weighted by the base weights. Shown separately; it
-  does not change match_score.
+  that have a trend score, weighted by the base weights. It does not change
+  match_score.
+
+Future fit ranking (rank_by_future_fit):
+  readiness     = match_score / best match_score among all roles x 100   (your closest role = 100)
+  outlook score = (role outlook + 1) / 2 x 100                           (-1 -> 0, 0 -> 50, +1 -> 100)
+  future fit    = (1 - w) x readiness + w x outlook score
+  w is chosen by the user ("how much should future outlook count"). w = 0 ranks
+  by skills only; a higher w moves roles with a better trend outlook up, so the
+  ranking responds to the scenario and to new trend data.
 """
 import json
 
@@ -118,6 +126,24 @@ def match_roles(profile, roles, trend=None, top_n=None, strength=TREND_STRENGTH)
     results = [score_role(r, levels, trend, strength) for r in roles]
     results.sort(key=lambda r: r["match_score"], reverse=True)
     return results[:top_n] if top_n else results
+
+
+DEFAULT_OUTLOOK_WEIGHT = 0.5
+
+
+def rank_by_future_fit(results, outlook_weight=DEFAULT_OUTLOOK_WEIGHT):
+    """Add readiness, outlook_score and future_fit to each result and sort by future_fit.
+    Roles without trend data get a neutral outlook score of 50."""
+    w = max(0.0, min(1.0, float(outlook_weight)))
+    best = max((r["match_score"] for r in results), default=0)
+    for r in results:
+        readiness = 100 * r["match_score"] / best if best else 0.0
+        outlook = r.get("trend_outlook")
+        outlook_score = 50.0 if outlook is None else (outlook + 1) / 2 * 100
+        r["readiness"] = round(readiness, 1)
+        r["outlook_score"] = round(outlook_score, 1)
+        r["future_fit"] = round((1 - w) * readiness + w * outlook_score, 1)
+    return sorted(results, key=lambda r: (r["future_fit"], r["match_score"]), reverse=True)
 
 
 # ---------------- self test: python matcher.py ----------------
