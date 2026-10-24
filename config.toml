@@ -1,0 +1,12 @@
+[theme]
+base = "light"
+primaryColor = "#171717"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#FAFAFA"
+textColor = "#171717"
+linkColor = "#0070F3"
+borderColor = "#EAEAEA"
+showWidgetBorder = true
+baseRadius = "medium"
+font = "Geist:https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap, sans-serif"
+codeFont = "Geist Mono:https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap, monospace"
