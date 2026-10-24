@@ -22,7 +22,7 @@
 | GitHub Repository | https://github.com/jenwennnn/SDC_Hackathon_2026_Team16.0      |
 | Live Demo         | https://sdc-hackathon-2026-team-160.replit.app                |
 | RunPod Endpoint   | Not used (see "How We Use RunPod")                           |
-| Slide Deck        | To be added                                                  |
+| Slide Deck        | https://drive.google.com/file/d/1pBJWAZ9RGUueGuC-FQxS4r90HlZzxUzc/view?usp=sharing                                                  |
 | Demo Video        | https://youtu.be/Qd4ovTAmQ44                                                  |
 
 ---
