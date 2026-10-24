@@ -23,7 +23,7 @@
 | Live Demo         | https://sdc-hackathon-2026-team-160.replit.app                |
 | RunPod Endpoint   | Not used (see "How We Use RunPod")                           |
 | Slide Deck        | To be added                                                  |
-| Demo Video        | To be added                                                  |
+| Demo Video        | https://youtu.be/Qd4ovTAmQ44                                                  |
 
 ---
 
