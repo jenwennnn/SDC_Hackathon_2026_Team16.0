@@ -5,7 +5,9 @@ Input: profile (the final_profile built by app.py)
 Output: draws top-3 role cards, then a detail view for any role the user picks.
 Trend: trend signals (data/signals.json) are turned into per-skill scores via
 trend_bridge.py and fed into the matcher. The user picks an AI progress
-scenario (steady / rapid), which changes how strongly trend counts.
+scenario (steady / rapid). Each scenario uses its own AI exposure values from
+the signal data, so skills that AI is likely to replace lose more weight
+under rapid progress (formula in trend_bridge.py).
 Usage (inside app.py):
     from results_page import render_results
     render_results(st.session_state['final_profile'])
@@ -38,7 +40,7 @@ def _sdg():
 
 @st.cache_data
 def _trend_inputs():
-    """Return (trend, info) from the latest signal batch, or (None, error text)."""
+    """Return ({scenario: trend}, info) from the latest batch, or (None, error text)."""
     try:
         signals = sl.load_signals()
         skill_map = tb.load_skill_map()
@@ -50,7 +52,8 @@ def _trend_inputs():
     info["skill_map_status"] = skill_map.get("status", "")
     info["mapped_count"] = skill_map.get("mapped_count", 0)
     info["skill_count"] = skill_map.get("skill_count", 0)
-    return tb.build_trend(signals, skill_map), info
+    info["outlook_table"] = tb.outlook_table(signals)
+    return tb.build_trends(signals, skill_map), info
 
 
 def _outlook_text(value):
@@ -64,19 +67,51 @@ def _render_trend_box(info, scenario):
     st.info(
         f"**Trend signals connected** | Source: {info['source_name']} | "
         f"Data date: {info['data_date']} (batch {info['batch_id']}).{synthetic}  \n"
-        f"Scenario: **{tb.SCENARIO_LABELS[scenario]}**. Skills whose market demand is rising "
-        f"count more in your overlap score, falling skills count less "
-        f"(trend strength {tb.SCENARIO_STRENGTH[scenario]}). "
+        f"Scenario: **{tb.SCENARIO_LABELS[scenario]}**. Each skill gets an outlook: market "
+        f"demand minus the share of the task AI is likely to replace in this scenario. "
+        f"Skills with a better outlook count more in your overlap score. "
         "This is an estimate to explore uncertainty, not a forecast."
     )
 
 
-def _render_scenario_compare(profile, trend):
+def _render_scenario_method(info):
+    """Show the inputs and the outlook per task type, so the method is checkable."""
+    names = {
+        "data_entry": "Data entry", "document_processing": "Document handling",
+        "customer_communication": "Customer communication",
+        "internal_communication": "Internal communication",
+        "scheduling_coordination": "Scheduling and coordination",
+        "reporting_writing": "Reports and writing",
+        "calculation_reconciliation": "Calculation and checking",
+        "data_analysis": "Data analysis", "content_creation": "Content creation",
+        "physical_or_manual": "Hands-on or manual work",
+        "decision_judgement": "Judgement and decisions",
+        "relationship_building": "Relationship building",
+    }
+    st.markdown("**Outlook = demand - AI exposure x replace share**, where "
+                "replace share = (1 - augment index) / 2. "
+                "Exposure is higher under rapid AI progress, so the outlook drops more for "
+                "tasks that AI tends to replace, and less for tasks where AI mostly assists.")
+    rows = [{
+        "Task type": names.get(r["task_type"], r["task_type"]),
+        "Demand": r["demand_index"],
+        "Augment (-1 replace, +1 assist)": r["augment_index"],
+        "Exposure steady": r["exposure_steady"],
+        "Exposure rapid": r["exposure_rapid"],
+        "Outlook steady": r["outlook_steady"],
+        "Outlook rapid": r["outlook_rapid"],
+    } for r in info["outlook_table"]]
+    st.dataframe(pd.DataFrame(rows), hide_index=True)
+    st.caption("All inputs come from the signal data shown above. The formula is a team "
+               "assumption. Each skill takes the outlook of its task type.")
+
+
+def _render_scenario_compare(profile, trends):
     """Same roles under no trend, steady and rapid, so the user sees what changes."""
     base = {r["title"]: r for r in match_roles(profile, _roles())}
     per_scn = {}
     for scn in ("steady", "rapid"):
-        res = match_roles(profile, _roles(), trend=trend, strength=tb.SCENARIO_STRENGTH[scn])
+        res = match_roles(profile, _roles(), trend=trends[scn])
         per_scn[scn] = {r["title"]: (i + 1, r) for i, r in enumerate(res)}
     rows = []
     for title, (rank_s, r_s) in sorted(per_scn["steady"].items(), key=lambda kv: kv[1][0]):
@@ -88,10 +123,11 @@ def _render_scenario_compare(profile, trend):
             "Overlap without trend %": base[title]["match_score"],
             "Overlap steady %": r_s["match_score"],
             "Overlap rapid %": r_r["match_score"],
-            "Role outlook": _outlook_text(r_s["trend_outlook"]),
+            "Outlook steady": _outlook_text(r_s["trend_outlook"]),
+            "Outlook rapid": _outlook_text(r_r["trend_outlook"]),
         })
     st.dataframe(pd.DataFrame(rows), hide_index=True)
-    st.caption("Role outlook = average demand trend of the role's skills that have trend data. "
+    st.caption("Role outlook = average outlook of the role's skills that have trend data. "
                "It is shown for context and does not change the ranking by itself.")
 
 
@@ -116,10 +152,12 @@ def render_results(profile, trend=None):
     )
     info = None
     if trend is None:
-        trend, info = _trend_inputs()
+        trends, info = _trend_inputs()
+    else:
+        trends = {"steady": trend, "rapid": trend}   # one trend given from outside
 
     scenario = "steady"
-    if trend is None:
+    if trends is None:
         st.warning(f"Trend signals not available ({info}). Matches are shown without trend weighting.")
         results = match_roles(profile, _roles())
     else:
@@ -130,8 +168,8 @@ def render_results(profile, trend=None):
             format_func=lambda x: tb.SCENARIO_LABELS[x])
         if isinstance(info, dict):
             _render_trend_box(info, scenario)
-        results = match_roles(profile, _roles(), trend=trend,
-                              strength=tb.SCENARIO_STRENGTH[scenario])
+        trend = trends[scenario]
+        results = match_roles(profile, _roles(), trend=trend)
 
     # ---- Top 3 cards ----
     top = results[:3]
@@ -150,7 +188,10 @@ def render_results(profile, trend=None):
 
     if trend is not None:
         with st.expander("Compare scenarios: how trend changes your ranking"):
-            _render_scenario_compare(profile, trend)
+            _render_scenario_compare(profile, trends)
+        if isinstance(info, dict):
+            with st.expander("How the scenarios work"):
+                _render_scenario_method(info)
 
     # ---- Detail view ----
     st.markdown("#### Explore a role")
@@ -173,11 +214,11 @@ def render_results(profile, trend=None):
                     "Skill": g["name"],
                     "Your level": g["your_level"],
                     "Role needs": g["required_level"],
-                    "Demand trend": tb.trend_label(g.get("trend")) if trend is not None else "not connected",
+                    "Outlook": _outlook_text(g.get("trend")) if trend is not None else "not connected",
                 } for g in gaps])
                 st.dataframe(df, hide_index=True)
                 if trend is not None:
-                    st.caption("Order: biggest gap first, with rising-demand skills moved up.")
+                    st.caption("Order: biggest gap first, with better-outlook skills moved up.")
             else:
                 st.write("No gaps. You meet every skill for this role.")
     with right:
@@ -278,7 +319,7 @@ def render_results(profile, trend=None):
             f"Trend per skill comes from a team mapping of ESCO skills to task types "
             f"({info['mapped_count']} of {info['skill_count']} skills mapped, status: "
             f"{info['skill_map_status']}). Unmapped skills get no trend adjustment. "
-            f"Scenario strengths are a team assumption.")
+            f"The scenario outlook formula is a team assumption.")
     st.caption(
         "Required levels are a team assumption (essential = 3, optional = 2); "
         "ESCO does not publish proficiency levels. "
