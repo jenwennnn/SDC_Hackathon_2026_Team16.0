@@ -9,11 +9,11 @@ Draws the Future Skills Radar: two views of the SAME data.
 Both views get every number, colour and arrow from signals_logic.py, so the
 same task can never look different in the two views.
 
-Used from app.py with:
-    from signals_views import render_signals_section
-    ...
-    if 'final_profile' in st.session_state:
-        render_signals_section(st.session_state['final_profile'])
+Used from app.py (step 3, "Your day"):
+    render_signals_section(profile, scenario)   # My Day and Movers board
+    render_changes(profile, scenario)           # "since the last data update" list
+    render_day_summary(profile, scenario)       # compact bar (optional)
+The scenario ('steady' or 'rapid') comes from the one shared switch in app.py.
 """
 
 import html
@@ -36,7 +36,6 @@ TASK_TYPE_NAMES = {
     "relationship_building": "Relationship building",
 }
 
-SCENARIO_CHOICES = ["steady", "rapid", "both"]
 SCENARIO_LABELS = {
     "steady": "Steady AI progress",
     "rapid": "Rapid AI progress",
@@ -113,21 +112,6 @@ def _both_scenarios(builder, *args):
     return {s: builder(*args, s) for s in ("steady", "rapid")}
 
 
-# ---------------------------------- banner ----------------------------------
-
-def _banner(data, batch):
-    meta = batch["meta"]
-    label = "Synthetic demo data" if meta.get("is_synthetic") else "Trend data"
-    note = meta.get("source_note", "")
-    st.info(
-        f"**{label}** | Source: {meta['source_name']} | "
-        f"Data date: {meta['data_date']}  \n"
-        f"{note}  \n"
-        "These are estimates, not facts. AI supports your career thinking; "
-        "the decisions are yours."
-    )
-
-
 # ----------------------------- view 1: My Day -----------------------------
 
 def _day_bar(rows):
@@ -154,8 +138,8 @@ def _summary_text(rows):
 
 def _render_my_day(task_details, data, batch_id, scenarios):
     if not task_details:
-        st.info("No confirmed daily tasks yet. Click 'Edit my skills', tick the "
-                "tasks you do, then click 'See my matches' again.")
+        st.info("No confirmed daily tasks yet. Go back to step 2 (Review) and tick "
+                "the tasks you do.")
         return
 
     meta = sl.get_batch(data, batch_id)["meta"]
@@ -166,7 +150,7 @@ def _render_my_day(task_details, data, batch_id, scenarios):
     st.markdown("**Your working day, split by task.** Each block is one of your "
                 "tasks; colour shows how much AI can already touch it.")
     for s in scenarios:
-        st.markdown(f"{SCENARIO_LABELS[s]}")
+        st.markdown(f"Scenario: {SCENARIO_LABELS[s]}")
         st.markdown(_day_bar(by_scn[s]), unsafe_allow_html=True)
         st.caption(_summary_text(by_scn[s]))
     st.caption("Colour key: green = low impact, yellow = medium, red = high, "
@@ -251,25 +235,80 @@ def _render_movers(task_details, data, batch_id, scenarios):
 
 # ------------------------------- entry point -------------------------------
 
-def render_signals_section(profile):
-    st.divider()
-    st.header("Future Skills Radar")
-    st.caption("Built from the daily tasks you confirmed. Click 'Edit my skills' "
-               "to change them.")
-
+def _load():
+    """Return (data, error_text)."""
     try:
-        data = sl.load_signals()
+        return sl.load_signals(), None
     except FileNotFoundError:
-        st.error("Trend data not found. Run `python generate_signals.py` first.")
-        return
+        return None, "Trend data not found. Run `python generate_signals.py` first."
     except ValueError as e:
-        st.error(str(e))
+        return None, str(e)
+
+
+def _task_details(profile):
+    return profile.get("current_role", {}).get("task_details", [])
+
+
+def day_counts(profile, scenario):
+    """{'high': n, 'medium': n, 'low': n, 'unknown': n, 'total': n} for the latest batch, or None."""
+    data, err = _load()
+    tasks = _task_details(profile)
+    if err or not tasks:
+        return None
+    rows = sl.build_my_day(tasks, data, sl.batch_ids(data)[-1], scenario)
+    counts = {"high": 0, "medium": 0, "low": 0, "unknown": 0}
+    for r in rows:
+        counts[r["risk"]] += 1
+    counts["total"] = len(rows)
+    return counts
+
+
+def render_day_summary(profile, scenario):
+    """Compact 'your day' bar for the Overview page."""
+    data, err = _load()
+    if err:
+        st.caption(err)
+        return
+    tasks = _task_details(profile)
+    if not tasks:
+        st.caption("No confirmed daily tasks yet. Add them in step 2 (Review).")
+        return
+    rows = sl.build_my_day(tasks, data, sl.batch_ids(data)[-1], scenario)
+    st.markdown(_day_bar(rows), unsafe_allow_html=True)
+    st.caption(_summary_text(rows) + ". Green = low, yellow = medium, red = high, grey = no data.")
+
+
+def render_changes(profile, scenario, limit=4):
+    """What moved between the two latest batches, your task types first."""
+    data, err = _load()
+    if err:
+        st.caption(err)
+        return
+    ids = sl.batch_ids(data)
+    if len(ids) < 2:
+        st.caption("Only one data batch so far. Changes appear after the next update.")
+        return
+    rows = sl.build_movers(data, ids[-1], scenario)
+    mine = {t.get("task_type") for t in _task_details(profile)}
+    rows.sort(key=lambda r: (r["task_type"] not in mine, -abs(r["demand_change"] or 0)))
+    for r in rows[:limit]:
+        d = r["demand_change"] or 0
+        word = "up" if d > 0 else ("down" if d < 0 else "unchanged")
+        star = " (in your day)" if r["task_type"] in mine else ""
+        st.markdown(f"- **{_pretty(r['task_type'])}**{star}: demand {word} "
+                    f"{_signed(d)} since {ids[-2]}, now {_signed(r['demand_index'])}")
+    meta = sl.get_batch(data, ids[-1])["meta"]
+    st.caption(f"Source: {meta['source_name']} | data date {meta['data_date']}"
+               + (" | synthetic demo data" if meta.get("is_synthetic") else ""))
+
+
+def render_signals_section(profile, scenario="steady"):
+    data, err = _load()
+    if err:
+        st.error(err)
         return
 
     ids = sl.batch_ids(data)
-    default_scn = sl.normalize_scenario(profile.get("scenario_focus", "both"))
-    default_choice = "both" if len(default_scn) == 2 else default_scn[0]
-
     c1, c2 = st.columns(2)
     with c1:
         batch_id = st.selectbox(
@@ -277,14 +316,7 @@ def render_signals_section(profile):
             format_func=lambda b: f"{b} (data date {sl.get_batch(data, b)['meta']['data_date']})")
     with c2:
         view = st.radio("View", VIEW_CHOICES, key="sig_view", horizontal=True)
-
-    choice = st.radio(
-        "AI progress scenario", SCENARIO_CHOICES, key="sig_scenario", horizontal=True,
-        index=SCENARIO_CHOICES.index(default_choice),
-        format_func=lambda x: SCENARIO_LABELS[x])
-    scenarios = ["steady", "rapid"] if choice == "both" else [choice]
-
-    _banner(data, sl.get_batch(data, batch_id))
+    scenarios = [scenario]
 
     task_details = profile.get("current_role", {}).get("task_details", [])
     if view == "My Day":
