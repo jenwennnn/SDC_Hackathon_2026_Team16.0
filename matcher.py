@@ -1,25 +1,25 @@
 """
-matcher.py  —  未来岗位匹配(确定性算法,不用 LLM)
-=====================================================
-输入:
-  1. profile:app.py 生成的 final_profile(用到 profile["skills"] 里的 esco_id 和 level)
-  2. roles:data/future_roles.json 里的 roles 列表
-  3. trend(可选):{esco_id: 数字},-1(下降) ~ +1(上升),需要和趋势层队友约定
-输出:
-  按 match_score 从高到低排序的列表,每个岗位包含:
-    match_score(0-100)、essential_coverage(必需技能覆盖率)、
-    matched / partial / gaps(技能差距明细)、explanation(一句话解释)、source
+matcher.py - future role matching (deterministic, no LLM)
 
-打分规则(全部可解释):
-  对岗位的每个技能:  覆盖度 = min(你的等级 / 岗位要求等级, 1)   # 没有这个技能 = 0
-  match_score = 所有技能 (权重 x 覆盖度) 之和 / 权重之和 x 100
-  权重:必需技能 1.0,可选技能 0.5(来自 future_roles.json)
-  趋势(可选):上升的技能权重变大,下降的变小,强度由 TREND_STRENGTH 控制
+Input:
+  1. profile: the final_profile built by app.py (uses esco_id and level in profile["skills"])
+  2. roles: the roles list from data/future_roles.json
+  3. trend (optional): {esco_id: number}, from -1 (declining) to +1 (rising)
+Output:
+  A list sorted by match_score (high to low). Each item has: match_score (0-100),
+  essential_coverage, essential_have / essential_total, matched / partial / gaps,
+  explanation, source.
+
+Scoring (fully explainable):
+  For each role skill:  coverage = min(your level / required level, 1)   (missing skill = 0)
+  match_score = sum(weight x coverage) / sum(weight) x 100
+  Weights: essential 1.0, optional 0.5 (from future_roles.json)
+  Trend (optional): rising skills get more weight, declining skills less (TREND_STRENGTH)
 """
 import json
 
-TREND_STRENGTH = 0.5   # 趋势对权重的影响程度。0 = 完全忽略趋势
-MIN_WEIGHT = 0.1       # 权重最低不低于这个值,避免被趋势降到 0
+TREND_STRENGTH = 0.5   # how much trend changes the weight. 0 = ignore trend
+MIN_WEIGHT = 0.1       # weight never drops below this
 
 
 def load_roles(path="data/future_roles.json"):
@@ -28,7 +28,7 @@ def load_roles(path="data/future_roles.json"):
 
 
 def user_skill_levels(profile):
-    """把用户技能整理成 {esco_id: level}。同一技能重复出现取最高等级;未映射的(esco_id 为空)跳过。"""
+    """Return {esco_id: level}. Duplicates keep the highest level; unmapped skills are skipped."""
     levels = {}
     for s in profile.get("skills", []):
         eid = s.get("esco_id")
@@ -66,7 +66,7 @@ def score_role(role, levels, trend=None):
             "your_level": have,
             "required_level": need,
             "level_gap": max(need - have, 0),
-            "priority": round(w * (1 - cov), 3),   # 越大越该优先学
+            "priority": round(w * (1 - cov), 3),   # higher = learn this first
         }
         if cov >= 1.0:
             matched.append(item)
@@ -90,13 +90,13 @@ def score_role(role, levels, trend=None):
         "title": role["title"],
         "match_score": score,
         "essential_coverage": ess_cov,
-        "essential_have": ess_have,         # 已具备的必需技能数(展示用)
-        "essential_total": ess_total,       # 必需技能总数
+        "essential_have": ess_have,
+        "essential_total": ess_total,
         "matched": matched,
         "partial": partial,
-        "gaps": gaps,                       # 差距明细,已按优先级排序
+        "gaps": gaps,                       # sorted by priority
         "explanation": explanation,
-        "source": role["source"],           # 每条推荐都带来源
+        "source": role["source"],           # every recommendation carries its source
         "sdg_tags": role.get("sdg_tags", []),
     }
 
@@ -108,7 +108,7 @@ def match_roles(profile, roles, trend=None, top_n=None):
     return results[:top_n] if top_n else results
 
 
-# ---------------- 自测:python matcher.py ----------------
+# ---------------- self test: python matcher.py ----------------
 if __name__ == "__main__":
     roles = load_roles()
     with open("data/occupation_templates.json", encoding="utf-8") as f:
@@ -117,7 +117,7 @@ if __name__ == "__main__":
     for tpl in templates:
         fake_profile = {"skills": [{"esco_id": s["esco_id"], "level": s["default_level"]}
                                    for s in tpl["skills"]]}
-        print(f"\n=== 用户:{tpl['display_name']['en']} ===")
+        print(f"\n=== User: {tpl['display_name']['en']} ===")
         for r in match_roles(fake_profile, roles, top_n=3):
             top_gap = ", ".join(g["name"] for g in r["gaps"][:3])
-            print(f"  {r['match_score']:5.1f}  {r['title']:30s} 最该先补: {top_gap}")
+            print(f"  {r['match_score']:5.1f}  {r['title']:30s} start with: {top_gap}")

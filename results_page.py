@@ -12,11 +12,17 @@ import json
 import pandas as pd
 import streamlit as st
 from matcher import load_roles, match_roles
+from pathway import build_pathway, load_courses
 
 
 @st.cache_data
 def _roles():
     return load_roles()
+
+
+@st.cache_data
+def _courses():
+    return load_courses()
 
 
 @st.cache_data
@@ -94,6 +100,67 @@ def render_results(profile, trend=None):
                 st.write(", ".join(m["name"] for m in r["matched"][:12]))
             else:
                 st.write("None of this role's skills are fully covered yet.")
+
+    # ---- Learning plan ----
+    st.markdown("#### Your learning plan")
+    courses = _courses()
+    if not courses:
+        st.info("No verified course data found yet (data/courses.json). "
+                "The plan appears here once courses are added.")
+    else:
+        cons = profile.get("constraints", {})
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            hours = st.slider("Hours per week", 1, 20, int(cons.get("hours_per_week", 5)), key="plan_hours")
+        with c2:
+            budget = st.selectbox(
+                "Budget", ["free", "low_cost", "hrd_corp_claimable"],
+                index=["free", "low_cost", "hrd_corp_claimable"].index(cons.get("budget", "free")),
+                format_func=lambda x: {"free": "Free only", "low_cost": "Low cost",
+                                       "hrd_corp_claimable": "HRD Corp claimable"}[x],
+                key="plan_budget")
+        with c3:
+            months = st.selectbox("Target timeline (months)", [3, 6, 12],
+                                  index=[3, 6, 12].index(cons.get("timeline_months", 6)), key="plan_months")
+        plan_cons = {**cons, "hours_per_week": hours, "budget": budget, "timeline_months": months}
+        profile["constraints"] = plan_cons      # keep the profile in sync with the sliders
+        plan = build_pathway(r, plan_cons, courses)
+
+        m1, m2, m3 = st.columns(3)
+        m1.metric("Total study time", f"{plan['total_hours']:g} h")
+        m2.metric("Estimated duration", f"{plan['total_weeks']} week" + ("" if plan['total_weeks'] == 1 else "s"))
+        m3.metric("Estimated cost", f"RM {plan['total_cost_myr']:g}")
+
+        if plan["steps"]:
+            if plan["within_timeline"]:
+                st.success(f"This plan fits your {months}-month target "
+                           f"(covers {plan['covered_count']} of {plan['target_count']} essential skill gaps).")
+            else:
+                st.warning(f"This plan needs about {plan['total_weeks']} weeks, more than your "
+                           f"{months}-month target (about {plan['timeline_weeks']} weeks). "
+                           "Try more hours per week or a longer timeline.")
+            df_plan = pd.DataFrame([{
+                "Step": p["order"],
+                "Course": p["title"],
+                "Provider": p["provider"],
+                "Teaches (your gaps)": ", ".join(p["covers"]),
+                "Hours": p["duration_hours"],
+                "Weeks": f"{p['start_week']}-{p['end_week']}",
+                "Cost": "Free" if not p["cost_myr"] else f"RM {p['cost_myr']:g}",
+                "Language": p["language"],
+                "Link": p["url"],
+            } for p in plan["steps"]])
+            st.dataframe(df_plan, hide_index=True,
+                         column_config={"Link": st.column_config.LinkColumn("Link", display_text="Open")})
+        else:
+            st.info("None of the courses we have checked cover this role's skill gaps within your budget.")
+
+        if plan["uncovered"]:
+            with st.expander(f"{len(plan['uncovered'])} essential skills have no course in our list yet"):
+                st.write(", ".join(g["name"] for g in plan["uncovered"][:30]))
+                st.caption("We only list courses that a team member has opened and checked by hand.")
+        st.caption("Estimates, not guarantees. " + " ".join(plan["assumptions"][:2]))
+        st.caption("You decide what to study and when. These are suggestions based on the sources shown.")
 
     # ---- SDG section ----
     with st.container(border=True):
