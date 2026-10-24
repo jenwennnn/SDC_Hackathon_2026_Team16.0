@@ -15,6 +15,9 @@ Scoring (fully explainable):
   match_score = sum(weight x coverage) / sum(weight) x 100
   Weights: essential 1.0, optional 0.5 (from future_roles.json)
   Trend (optional): rising skills get more weight, declining skills less (TREND_STRENGTH)
+  Role outlook (optional, only with trend): average trend of the role's skills
+  that have a trend score, weighted by the base weights. Shown separately; it
+  does not change match_score.
 """
 import json
 
@@ -38,16 +41,22 @@ def user_skill_levels(profile):
     return levels
 
 
-def score_role(role, levels, trend=None):
+def score_role(role, levels, trend=None, strength=TREND_STRENGTH):
     total_w = 0.0
     got_w = 0.0
     matched, partial, gaps = [], [], []
     ess_total = ess_have = 0
+    outlook_w = outlook_sum = 0.0
+    trend_count = 0
 
     for sk in role["skills"]:
         w = sk["weight"]
-        if trend and sk["esco_id"] in trend:
-            w = max(MIN_WEIGHT, w * (1 + TREND_STRENGTH * trend[sk["esco_id"]]))
+        t = trend.get(sk["esco_id"]) if trend else None
+        if t is not None:
+            outlook_w += sk["weight"]
+            outlook_sum += sk["weight"] * t
+            trend_count += 1
+            w = max(MIN_WEIGHT, w * (1 + strength * t))
 
         need = sk["required_level"]
         have = levels.get(sk["esco_id"], 0)
@@ -67,6 +76,7 @@ def score_role(role, levels, trend=None):
             "required_level": need,
             "level_gap": max(need - have, 0),
             "priority": round(w * (1 - cov), 3),   # higher = learn this first
+            "trend": t,                             # None = no trend data for this skill
         }
         if cov >= 1.0:
             matched.append(item)
@@ -98,12 +108,14 @@ def score_role(role, levels, trend=None):
         "explanation": explanation,
         "source": role["source"],           # every recommendation carries its source
         "sdg_tags": role.get("sdg_tags", []),
+        "trend_outlook": round(outlook_sum / outlook_w, 2) if outlook_w else None,
+        "trend_skill_count": trend_count,
     }
 
 
-def match_roles(profile, roles, trend=None, top_n=None):
+def match_roles(profile, roles, trend=None, top_n=None, strength=TREND_STRENGTH):
     levels = user_skill_levels(profile)
-    results = [score_role(r, levels, trend) for r in roles]
+    results = [score_role(r, levels, trend, strength) for r in roles]
     results.sort(key=lambda r: r["match_score"], reverse=True)
     return results[:top_n] if top_n else results
 
