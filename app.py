@@ -2,7 +2,7 @@
 app.py - ShiftHappens: step-by-step flow
   Step 1: choose a starting point (CV or role template)
   Step 2: review and confirm tasks and skills (human in the loop)
-  Step 3: see ranked role matches and skill gaps
+  Step 3: see ranked role matches, skill gaps and AI impact on daily tasks
 Data contract: final_profile keeps skills[].esco_id untouched for the matcher.
 """
 import json
@@ -19,6 +19,7 @@ from dotenv import load_dotenv
 from thefuzz import process
 
 from results_page import render_results
+from signals_views import render_signals_section
 
 # ---------- Config (secrets come from environment variables, never from code) ----------
 load_dotenv()
@@ -238,6 +239,8 @@ def page_start():
                         "industry": "General",
                         "years_experience": years_exp,
                         "tasks": [clean_label(t["label"]["en"]) for t in tpl["tasks"]],
+                        "task_type_map": {clean_label(t["label"]["en"]): t.get("task_type")
+                                          for t in tpl["tasks"]},
                     },
                 }, "cold_start_template")
 
@@ -338,6 +341,10 @@ def page_review():
                         "industry": role.get("industry", ""),
                         "years_experience": role.get("years_experience", ""),
                         "tasks": confirmed_tasks,
+                        "task_details": [
+                            {"label": t, "task_type": role.get("task_type_map", {}).get(t)}
+                            for t in confirmed_tasks
+                        ],
                     },
                     "goals": {"mode": "undecided", "interests": [], "sdg_importance": 0.3},
                     "constraints": {"hours_per_week": 5, "budget": "free",
@@ -364,12 +371,15 @@ def page_results():
         if st.button("Start over"):
             start_over()
 
-    tab_matches, tab_profile = st.tabs(["Role matches", "My profile data"])
+    tab_matches, tab_signals, tab_profile = st.tabs(
+        ["Role matches", "AI impact on my tasks", "My profile data"])
     with tab_matches:
         render_results(profile)
+    with tab_signals:
+        render_signals_section(profile)
     with tab_profile:
         st.caption("This is the data used for matching. No name, age, gender or contact details are stored.")
-        st.download_button("Download profile (JSON)", data=json.dumps(profile, indent=2),
+        st.download_button("Download profile (JSON)", data=json.dumps(profile, indent=2, ensure_ascii=True),
                            file_name="skills_profile.json")
         with st.expander("Show raw JSON"):
             st.json(profile)
