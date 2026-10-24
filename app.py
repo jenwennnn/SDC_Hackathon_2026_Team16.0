@@ -7,6 +7,7 @@ import PyPDF2
 import docx
 from thefuzz import process
 from dotenv import load_dotenv
+from signals_views import render_signals_section
 
 # 1. 从环境变量加载配置，绝不在代码里写死密码
 load_dotenv()
@@ -270,3 +271,7 @@ if 'draft_profile' in st.session_state:
         st.json(final_profile)
         st.download_button("Download JSON", data=json.dumps(final_profile, indent=2),
                            file_name="skills_profile.json")
+
+# --- Feature 2: trend signals ---
+if 'final_profile' in st.session_state:
+    render_signals_section(st.session_state['final_profile'])
