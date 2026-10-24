@@ -22,7 +22,7 @@
         {
           "task_id": "tsk_admin_01",
           "label": {
-            "en": "Answer telephone calls and direct inquiries[cite: 2]",
+            "en": "Answer telephone calls and direct inquiries",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -31,7 +31,7 @@
         {
           "task_id": "tsk_admin_02",
           "label": {
-            "en": "Greet visitors and direct them to appropriate personnel[cite: 2]",
+            "en": "Greet visitors and direct them to appropriate personnel",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -40,7 +40,7 @@
         {
           "task_id": "tsk_admin_03",
           "label": {
-            "en": "Sort and distribute incoming mail and packages[cite: 2]",
+            "en": "Sort and distribute incoming mail and packages",
             "zh": ""
           },
           "task_type": "physical_or_manual",
@@ -49,7 +49,7 @@
         {
           "task_id": "tsk_admin_04",
           "label": {
-            "en": "Schedule appointments and maintain staff diaries[cite: 2]",
+            "en": "Schedule appointments and maintain staff diaries",
             "zh": ""
           },
           "task_type": "scheduling_coordination",
@@ -58,7 +58,7 @@
         {
           "task_id": "tsk_admin_05",
           "label": {
-            "en": "Organise and file paper and electronic documents[cite: 2]",
+            "en": "Organise and file paper and electronic documents",
             "zh": ""
           },
           "task_type": "document_processing",
@@ -67,7 +67,7 @@
         {
           "task_id": "tsk_admin_06",
           "label": {
-            "en": "Draft and send internal emails or communications[cite: 2]",
+            "en": "Draft and send internal emails or communications",
             "zh": ""
           },
           "task_type": "internal_communication",
@@ -76,7 +76,7 @@
         {
           "task_id": "tsk_admin_07",
           "label": {
-            "en": "Order office supplies and manage inventory[cite: 2]",
+            "en": "Order office supplies and manage inventory",
             "zh": ""
           },
           "task_type": "calculation_reconciliation",
@@ -85,7 +85,7 @@
         {
           "task_id": "tsk_admin_08",
           "label": {
-            "en": "Prepare meeting rooms and arrange travel for staff[cite: 2]",
+            "en": "Prepare meeting rooms and arrange travel for staff",
             "zh": ""
           },
           "task_type": "scheduling_coordination",
@@ -94,7 +94,7 @@
         {
           "task_id": "tsk_admin_09",
           "label": {
-            "en": "[UNSOURCED] Resolve conflicting priorities when multiple urgent requests arrive",
+            "en": "Resolve conflicting priorities when multiple urgent requests arrive",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -103,7 +103,7 @@
         {
           "task_id": "tsk_admin_10",
           "label": {
-            "en": "[UNSOURCED] Coordinate with external vendors for office maintenance",
+            "en": "Coordinate with external vendors for office maintenance",
             "zh": ""
           },
           "task_type": "relationship_building",
@@ -190,7 +190,7 @@
           "skill_group": "digital"
         }
       ],
-      "grounding_notes": "Based on the ESCO descriptions for administrative assistant, secretary, office clerk, and receptionist[cite: 2].",
+      "grounding_notes": "Based on the ESCO descriptions for administrative assistant, secretary, office clerk, and receptionist.",
       "review": {
         "reviewed_by": null,
         "reviewed_at": null
@@ -214,7 +214,7 @@
         {
           "task_id": "tsk_data_01",
           "label": {
-            "en": "Compile and sort information from source documents[cite: 2]",
+            "en": "Compile and sort information from source documents",
             "zh": ""
           },
           "task_type": "document_processing",
@@ -223,7 +223,7 @@
         {
           "task_id": "tsk_data_02",
           "label": {
-            "en": "Enter customer and account data into computer systems[cite: 2]",
+            "en": "Enter customer and account data into computer systems",
             "zh": ""
           },
           "task_type": "data_entry",
@@ -232,7 +232,7 @@
         {
           "task_id": "tsk_data_03",
           "label": {
-            "en": "Review source documents to identify data deficiencies[cite: 2]",
+            "en": "Review source documents to identify data deficiencies",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -241,7 +241,7 @@
         {
           "task_id": "tsk_data_04",
           "label": {
-            "en": "Verify entered data to ensure accuracy and correctness[cite: 2]",
+            "en": "Verify entered data to ensure accuracy and correctness",
             "zh": ""
           },
           "task_type": "calculation_reconciliation",
@@ -250,7 +250,7 @@
         {
           "task_id": "tsk_data_05",
           "label": {
-            "en": "Update and maintain digital records in the system[cite: 2]",
+            "en": "Update and maintain digital records in the system",
             "zh": ""
           },
           "task_type": "data_entry",
@@ -259,7 +259,7 @@
         {
           "task_id": "tsk_data_06",
           "label": {
-            "en": "Retrieve specific information from databases upon request[cite: 2]",
+            "en": "Retrieve specific information from databases upon request",
             "zh": ""
           },
           "task_type": "document_processing",
@@ -268,7 +268,7 @@
         {
           "task_id": "tsk_data_07",
           "label": {
-            "en": "Organise daily workflow and prioritise data entry tasks[cite: 2]",
+            "en": "Organise daily workflow and prioritise data entry tasks",
             "zh": ""
           },
           "task_type": "scheduling_coordination",
@@ -277,7 +277,7 @@
         {
           "task_id": "tsk_data_08",
           "label": {
-            "en": "Address and correct data discrepancies[cite: 2]",
+            "en": "Address and correct data discrepancies",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -286,7 +286,7 @@
         {
           "task_id": "tsk_data_09",
           "label": {
-            "en": "[UNSOURCED] Build relationships with source data providers to improve input quality",
+            "en": "Build relationships with source data providers to improve input quality",
             "zh": ""
           },
           "task_type": "relationship_building",
@@ -367,7 +367,7 @@
           "skill_group": "soft"
         }
       ],
-      "grounding_notes": "Based on the ESCO descriptions for data entry clerk and data entry supervisor[cite: 2].",
+      "grounding_notes": "Based on the ESCO descriptions for data entry clerk and data entry supervisor.",
       "review": {
         "reviewed_by": null,
         "reviewed_at": null
@@ -392,7 +392,7 @@
         {
           "task_id": "tsk_cust_01",
           "label": {
-            "en": "Answer incoming calls to respond to customer inquiries[cite: 2]",
+            "en": "Answer incoming calls to respond to customer inquiries",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -401,7 +401,7 @@
         {
           "task_id": "tsk_cust_02",
           "label": {
-            "en": "Make outgoing calls to promote goods and services[cite: 2]",
+            "en": "Make outgoing calls to promote goods and services",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -410,7 +410,7 @@
         {
           "task_id": "tsk_cust_03",
           "label": {
-            "en": "Listen to customer complaints and identify the root issue[cite: 2]",
+            "en": "Listen to customer complaints and identify the root issue",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -419,7 +419,7 @@
         {
           "task_id": "tsk_cust_04",
           "label": {
-            "en": "Mediate and resolve conflicts with dissatisfied customers[cite: 2]",
+            "en": "Mediate and resolve conflicts with dissatisfied customers",
             "zh": ""
           },
           "task_type": "relationship_building",
@@ -428,7 +428,7 @@
         {
           "task_id": "tsk_cust_05",
           "label": {
-            "en": "Provide information about company policies and products[cite: 2]",
+            "en": "Provide information about company policies and products",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -437,7 +437,7 @@
         {
           "task_id": "tsk_cust_06",
           "label": {
-            "en": "Record data regarding customer satisfaction and complaints[cite: 2]",
+            "en": "Record data regarding customer satisfaction and complaints",
             "zh": ""
           },
           "task_type": "data_entry",
@@ -446,7 +446,7 @@
         {
           "task_id": "tsk_cust_07",
           "label": {
-            "en": "Prepare reports on customer interactions and satisfaction levels[cite: 2]",
+            "en": "Prepare reports on customer interactions and satisfaction levels",
             "zh": ""
           },
           "task_type": "reporting_writing",
@@ -455,7 +455,7 @@
         {
           "task_id": "tsk_cust_08",
           "label": {
-            "en": "Process customer service charges and arrange billing[cite: 2]",
+            "en": "Process customer service charges and arrange billing",
             "zh": ""
           },
           "task_type": "calculation_reconciliation",
@@ -464,7 +464,7 @@
         {
           "task_id": "tsk_cust_09",
           "label": {
-            "en": "[UNSOURCED] Collaborate with internal teams to flag recurring product issues",
+            "en": "Collaborate with internal teams to flag recurring product issues",
             "zh": ""
           },
           "task_type": "internal_communication",
@@ -539,7 +539,7 @@
           "skill_group": "soft"
         }
       ],
-      "grounding_notes": "Based on the ESCO descriptions for customer service representative, call centre agent, and customer contact centre information clerk[cite: 2].",
+      "grounding_notes": "Based on the ESCO descriptions for customer service representative, call centre agent, and customer contact centre information clerk.",
       "review": {
         "reviewed_by": null,
         "reviewed_at": null
@@ -564,7 +564,7 @@
         {
           "task_id": "tsk_acct_01",
           "label": {
-            "en": "Record day-to-day financial transactions in the ledger[cite: 2]",
+            "en": "Record day-to-day financial transactions in the ledger",
             "zh": ""
           },
           "task_type": "data_entry",
@@ -573,7 +573,7 @@
         {
           "task_id": "tsk_acct_02",
           "label": {
-            "en": "Review and reconcile key balance sheets[cite: 2]",
+            "en": "Review and reconcile key balance sheets",
             "zh": ""
           },
           "task_type": "calculation_reconciliation",
@@ -582,7 +582,7 @@
         {
           "task_id": "tsk_acct_03",
           "label": {
-            "en": "Check employee time sheets, sick days, and vacations[cite: 2]",
+            "en": "Check employee time sheets, sick days, and vacations",
             "zh": ""
           },
           "task_type": "document_processing",
@@ -591,7 +591,7 @@
         {
           "task_id": "tsk_acct_04",
           "label": {
-            "en": "Distribute pay checks and manage payroll records[cite: 2]",
+            "en": "Distribute pay checks and manage payroll records",
             "zh": ""
           },
           "task_type": "document_processing",
@@ -600,7 +600,7 @@
         {
           "task_id": "tsk_acct_05",
           "label": {
-            "en": "Prepare cost and budgeting analyses[cite: 2]",
+            "en": "Prepare cost and budgeting analyses",
             "zh": ""
           },
           "task_type": "data_analysis",
@@ -609,7 +609,7 @@
         {
           "task_id": "tsk_acct_06",
           "label": {
-            "en": "Identify new opportunities to save costs[cite: 2]",
+            "en": "Identify new opportunities to save costs",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -618,7 +618,7 @@
         {
           "task_id": "tsk_acct_07",
           "label": {
-            "en": "Assemble financial data for accountants to review[cite: 2]",
+            "en": "Assemble financial data for accountants to review",
             "zh": ""
           },
           "task_type": "reporting_writing",
@@ -627,7 +627,7 @@
         {
           "task_id": "tsk_acct_08",
           "label": {
-            "en": "Ensure compliance with internal financial policies[cite: 2]",
+            "en": "Ensure compliance with internal financial policies",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -636,7 +636,7 @@
         {
           "task_id": "tsk_acct_09",
           "label": {
-            "en": "[UNSOURCED] Build trust with department heads to gather accurate budget forecasts",
+            "en": "Build trust with department heads to gather accurate budget forecasts",
             "zh": ""
           },
           "task_type": "relationship_building",
@@ -711,7 +711,7 @@
           "skill_group": "soft"
         }
       ],
-      "grounding_notes": "Based on the ESCO descriptions for bookkeeper, payroll clerk, and cost analyst[cite: 2].",
+      "grounding_notes": "Based on the ESCO descriptions for bookkeeper, payroll clerk, and cost analyst.",
       "review": {
         "reviewed_by": null,
         "reviewed_at": null
@@ -737,7 +737,7 @@
         {
           "task_id": "tsk_mktg_01",
           "label": {
-            "en": "Create and curate digital content for web platforms[cite: 2]",
+            "en": "Create and curate digital content for web platforms",
             "zh": ""
           },
           "task_type": "content_creation",
@@ -746,7 +746,7 @@
         {
           "task_id": "tsk_mktg_02",
           "label": {
-            "en": "Distribute marketing emails and corporate promotional materials[cite: 2]",
+            "en": "Distribute marketing emails and corporate promotional materials",
             "zh": ""
           },
           "task_type": "customer_communication",
@@ -755,7 +755,7 @@
         {
           "task_id": "tsk_mktg_03",
           "label": {
-            "en": "Monitor and maintain interactive online communities[cite: 2]",
+            "en": "Monitor and maintain interactive online communities",
             "zh": ""
           },
           "task_type": "relationship_building",
@@ -764,7 +764,7 @@
         {
           "task_id": "tsk_mktg_04",
           "label": {
-            "en": "Analyse competitor websites and review site performance analytics[cite: 2]",
+            "en": "Analyse competitor websites and review site performance analytics",
             "zh": ""
           },
           "task_type": "data_analysis",
@@ -773,7 +773,7 @@
         {
           "task_id": "tsk_mktg_05",
           "label": {
-            "en": "Prepare marketing reports for account and financial divisions[cite: 2]",
+            "en": "Prepare marketing reports for account and financial divisions",
             "zh": ""
           },
           "task_type": "reporting_writing",
@@ -782,7 +782,7 @@
         {
           "task_id": "tsk_mktg_06",
           "label": {
-            "en": "Coordinate marketing resources and internal projects[cite: 2]",
+            "en": "Coordinate marketing resources and internal projects",
             "zh": ""
           },
           "task_type": "scheduling_coordination",
@@ -791,7 +791,7 @@
         {
           "task_id": "tsk_mktg_07",
           "label": {
-            "en": "Ensure content complies with corporate standards and legal regulations[cite: 2]",
+            "en": "Ensure content complies with corporate standards and legal regulations",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -800,7 +800,7 @@
         {
           "task_id": "tsk_mktg_08",
           "label": {
-            "en": "Develop online sales strategies based on market research[cite: 2]",
+            "en": "Develop online sales strategies based on market research",
             "zh": ""
           },
           "task_type": "decision_judgement",
@@ -809,7 +809,7 @@
         {
           "task_id": "tsk_mktg_09",
           "label": {
-            "en": "[UNSOURCED] Pitch creative campaign ideas to senior management",
+            "en": "Pitch creative campaign ideas to senior management",
             "zh": ""
           },
           "task_type": "internal_communication",
@@ -884,7 +884,7 @@
           "skill_group": "soft"
         }
       ],
-      "grounding_notes": "Based on the ESCO descriptions for online marketer, marketing assistant, web content manager, and online community manager[cite: 2].",
+      "grounding_notes": "Based on the ESCO descriptions for online marketer, marketing assistant, web content manager, and online community manager.",
       "review": {
         "reviewed_by": null,
         "reviewed_at": null

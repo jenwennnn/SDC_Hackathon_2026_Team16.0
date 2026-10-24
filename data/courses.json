@@ -1,0 +1,221 @@
+{
+ "status": "human_verified",
+ "courses": [
+  {
+   "course_id": "crs_001",
+   "title": "Data Science Ethics",
+   "provider": "Coursera (University of Michigan)",
+   "url": "https://www.coursera.org/learn/data-science-ethics",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 12.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/e9575f7f-053a-439e-8074-f93df3334e92"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/data-science-ethics",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_002",
+   "title": "High School Statistics",
+   "provider": "Khan Academy",
+   "url": "https://www.khanacademy.org/math/statistics-probability",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 15.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833"
+   ],
+   "source": {
+    "url": "https://www.khanacademy.org/math/statistics-probability",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_003",
+   "title": "Inbound Marketing Certification",
+   "provider": "HubSpot Academy",
+   "url": "https://academy.hubspot.com/courses/inbound-marketing",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 5.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/750caee5-12a0-46ba-b8aa-1e56370deaf9"
+   ],
+   "source": {
+    "url": "https://academy.hubspot.com/courses/inbound-marketing",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_004",
+   "title": "Foundations: Data Data Everywhere",
+   "provider": "Coursera (Google)",
+   "url": "https://www.coursera.org/learn/foundations-data",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 21.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/629685b8-5f9e-4522-8cff-b3e2c4ec625a"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/foundations-data",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_005",
+   "title": "Data Cleaning",
+   "provider": "Kaggle Learn",
+   "url": "https://www.kaggle.com/learn/data-cleaning",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 4.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/50b100ea-74fd-4706-99db-3e4ca55e51b8"
+   ],
+   "source": {
+    "url": "https://www.kaggle.com/learn/data-cleaning",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_006",
+   "title": "Data Visualization",
+   "provider": "Kaggle Learn",
+   "url": "https://www.kaggle.com/learn/data-visualization",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 5.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/348b74cd-49ce-4844-8bdf-ec188b497213"
+   ],
+   "source": {
+    "url": "https://www.kaggle.com/learn/data-visualization",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_007",
+   "title": "Business Analytics for Decision Making",
+   "provider": "Coursera (University of Colorado)",
+   "url": "https://www.coursera.org/learn/business-analytics-decision-making",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 11.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/98a1dec3-8138-4f46-a596-5e2a83b884b9"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/business-analytics-decision-making",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_008",
+   "title": "Intro to SQL",
+   "provider": "Kaggle Learn",
+   "url": "https://www.kaggle.com/learn/intro-to-sql",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 3.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/9cf681c7-89ec-470c-b651-7fe03786f586"
+   ],
+   "source": {
+    "url": "https://www.kaggle.com/learn/intro-to-sql",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_009",
+   "title": "Introduction to Data Science in Python",
+   "provider": "Coursera (University of Michigan)",
+   "url": "https://www.coursera.org/learn/python-data-analysis",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 15.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/edebd83d-35f6-4ed5-a940-6c203d178c01"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/python-data-analysis",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_010",
+   "title": "Data Engineering Basics for Everyone",
+   "provider": "edX (IBM)",
+   "url": "https://www.edx.org/course/data-engineering-basics-for-everyone",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 10.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/48db96bf-3314-45c6-bad8-fdb6e20e5639"
+   ],
+   "source": {
+    "url": "https://www.edx.org/course/data-engineering-basics-for-everyone",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_011",
+   "title": "Data Mining",
+   "provider": "Coursera (University of Illinois)",
+   "url": "https://www.coursera.org/learn/data-mining-project",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 16.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/25f0ea33-b4a2-4f31-b7b4-7d20e827b180"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/data-mining-project",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  },
+  {
+   "course_id": "crs_012",
+   "title": "Quantitative Modeling",
+   "provider": "Coursera (University of Pennsylvania)",
+   "url": "https://www.coursera.org/learn/quantitative-modeling-fundamentals",
+   "cost_type": "free",
+   "cost_myr": 0.0,
+   "duration_hours": 8.0,
+   "language": "en",
+   "skill_ids": [
+    "http://data.europa.eu/esco/skill/6360a934-cc87-4954-9656-b32db20592e3"
+   ],
+   "source": {
+    "url": "https://www.coursera.org/learn/quantitative-modeling-fundamentals",
+    "date_checked": "2026-10-24",
+    "verified_by": "NJW"
+   }
+  }
+ ]
+}

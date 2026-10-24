@@ -8,7 +8,7 @@ import pandas as pd
 
 SEED_PATH = "data/esco_skills_seed.json"
 TPL_PATH = "data/occupation_templates.json"
-ESCO_CSV = "esco/skills_en.csv"   # 列名以你实际文件为准
+ESCO_CSV = "esco/skills_en.csv"   
 
 seed = json.load(open(SEED_PATH, encoding="utf-8"))
 tpl = json.load(open(TPL_PATH, encoding="utf-8"))

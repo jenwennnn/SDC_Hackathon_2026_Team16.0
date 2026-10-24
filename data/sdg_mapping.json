@@ -1,0 +1,129 @@
+{
+ "source": {
+  "name": "UN Sustainable Development Goals",
+  "url": "https://sdgs.un.org/goals",
+  "note": "Target wording checked against several UN-derived pages. Target summaries are written in our own words."
+ },
+ "status": "draft_needs_human_review",
+ "method": "Team mapping: each role is linked to the SDG target it most plausibly supports. Most links are indirect and are labelled so.",
+ "pathway_sdgs": [
+  {
+   "sdg": 4,
+   "sdg_name": "Quality Education",
+   "target": "4.4",
+   "target_summary": "Increase the number of people with relevant skills for decent jobs.",
+   "why": "Following a reskilling plan builds skills that employers look for.",
+   "link_strength": "direct"
+  },
+  {
+   "sdg": 8,
+   "sdg_name": "Decent Work and Economic Growth",
+   "target": "8.5",
+   "target_summary": "Achieve full and productive employment and decent work for all.",
+   "why": "Moving into a growing role supports productive employment and decent work.",
+   "link_strength": "direct"
+  }
+ ],
+ "roles": {
+  "data analyst": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.2",
+    "target_summary": "Raise economic productivity through diversification, technology upgrading and innovation.",
+    "why": "Data analysis helps organisations use technology and evidence to raise productivity.",
+    "link_strength": "indirect"
+   }
+  ],
+  "data scientist": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.2",
+    "target_summary": "Raise economic productivity through diversification, technology upgrading and innovation.",
+    "why": "Data science is a core way organisations upgrade technology and innovate.",
+    "link_strength": "indirect"
+   }
+  ],
+  "data quality specialist": [
+   {
+    "sdg": 17,
+    "sdg_name": "Partnerships for the Goals",
+    "target": "17.18",
+    "target_summary": "Increase the availability of high-quality, timely and reliable data.",
+    "why": "Checking and improving data quality supports the reliable data this target asks for.",
+    "link_strength": "indirect"
+   }
+  ],
+  "data protection officer": [
+   {
+    "sdg": 16,
+    "sdg_name": "Peace, Justice and Strong Institutions",
+    "target": "16.6",
+    "target_summary": "Build effective, accountable and transparent institutions.",
+    "why": "Protecting personal data helps organisations stay accountable and transparent.",
+    "link_strength": "indirect"
+   }
+  ],
+  "market research analyst": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.3",
+    "target_summary": "Support productive activity, decent job creation, entrepreneurship and the growth of small and medium businesses, including their access to finance.",
+    "why": "Market research helps small and medium businesses find customers and grow.",
+    "link_strength": "indirect"
+   }
+  ],
+  "digital marketing manager": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.3",
+    "target_summary": "Support productive activity, decent job creation, entrepreneurship and the growth of small and medium businesses, including their access to finance.",
+    "why": "Digital marketing helps small and medium businesses reach customers and grow.",
+    "link_strength": "indirect"
+   }
+  ],
+  "client relations manager": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.3",
+    "target_summary": "Support productive activity, decent job creation, entrepreneurship and the growth of small and medium businesses, including their access to finance.",
+    "why": "Strong client relationships help businesses keep customers and create stable jobs.",
+    "link_strength": "indirect"
+   }
+  ],
+  "customer experience manager": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.2",
+    "target_summary": "Raise economic productivity through diversification, technology upgrading and innovation.",
+    "why": "Better customer experience raises service quality and productivity through innovation.",
+    "link_strength": "indirect"
+   }
+  ],
+  "financial analyst": [
+   {
+    "sdg": 8,
+    "sdg_name": "Decent Work and Economic Growth",
+    "target": "8.10",
+    "target_summary": "Strengthen national financial institutions so more people can use banking, financial and insurance services.",
+    "why": "Financial analysis supports institutions that offer financial services to more people.",
+    "link_strength": "indirect"
+   }
+  ],
+  "financial controller": [
+   {
+    "sdg": 16,
+    "sdg_name": "Peace, Justice and Strong Institutions",
+    "target": "16.6",
+    "target_summary": "Build effective, accountable and transparent institutions.",
+    "why": "Financial control and reporting help organisations stay accountable and transparent.",
+    "link_strength": "indirect"
+   }
+  ]
+ }
+}
