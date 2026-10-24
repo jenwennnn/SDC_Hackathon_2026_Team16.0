@@ -262,14 +262,14 @@ Statement: [`submission/SDC2026_16.0_Runpod_POU.pdf`](submission/SDC2026_16.0_Ru
 ## Submission Checklist
 
 - [x] Team name, domain and SDG track filled in
-- [ ] Slide deck link added
-- [ ] Demo video link added
-- [ ] Replit used, with proof of use in `submission/`
+- [x] Slide deck link added
+- [x] Demo video link added
+- [x] Replit used, with proof of use in `submission/`
 - [x] RunPod: not used, statement in `submission/`
-- [ ] Preliminary submission completed (`SDC2026_16.0_Preliminary.pdf`)
-- [ ] Technology declaration completed (`SDC2026_16.0_TechDeclaration.pdf`)
+- [x] Preliminary submission completed (`SDC2026_16.0_Preliminary.pdf`)
+- [x] Technology declaration completed (`SDC2026_16.0_TechDeclaration.pdf`)
 - [x] Submission files renamed with our team name
-- [ ] "How to Run" steps verified
+- [x] "How to Run" steps verified
 - [x] No API keys or secrets committed to the repository
 
 ## License
