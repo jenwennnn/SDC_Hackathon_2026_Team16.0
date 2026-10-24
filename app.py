@@ -2,10 +2,6 @@ import streamlit as st
 import json
 import re
 import os
-import streamlit as st
-import json
-import re
-import os
 from io import StringIO
 import PyPDF2
 import docx
@@ -204,17 +200,68 @@ if 'draft_profile' in st.session_state:
             skill["user_confirmed"] = True
             confirmed_skills.append(skill)
             
+    # ---------- 第3层:目标与偏好 ----------
+    st.divider()
+    st.subheader("Your Goals")
+    mode = st.selectbox("What do you want?", [
+        "undecided", "upskill_current", "same_industry_shift", "full_switch"],
+        format_func=lambda x: {
+            "undecided": "Not sure yet",
+            "upskill_current": "Level up in my current role",
+            "same_industry_shift": "Move to a new role in my industry",
+            "full_switch": "Switch careers completely"}[x])
+    interests = st.multiselect("Interest areas (optional)", [
+        "Clean energy", "Healthcare", "Smart agriculture",
+        "Education", "Responsible AI", "Digital economy"])
+    sdg_importance = st.slider(
+        "How much should SDG contribution influence my recommendations? (0 = ignore)",
+        0.0, 1.0, 0.3, 0.1)
+
+    # ---------- 第4层:现实约束 ----------
+    st.subheader("Your Constraints")
+    hours = st.slider("Learning hours per week", 1, 20, 5)
+    budget = st.selectbox("Budget", ["free", "low_cost", "hrd_corp_claimable"],
+        format_func=lambda x: {"free": "Free only", "low_cost": "Low cost",
+                               "hrd_corp_claimable": "HRD Corp claimable"}[x])
+    timeline = st.selectbox("Target timeline (months)", [3, 6, 12], index=1)
+    language = st.selectbox("Preferred course language", ["en", "ms", "zh"])
+
+    # ---------- 第5层:不确定性偏好 ----------
+    st.subheader("Risk & Scenario")
+    risk = st.radio("Career style", ["stable", "aggressive"],
+        format_func=lambda x: "Stable route" if x == "stable" else "Bet on emerging roles",
+        horizontal=True)
+    scenario = st.radio("AI disruption scenario", ["both", "moderate", "fast"],
+        format_func=lambda x: {"both": "Show both", "moderate": "Moderate", "fast": "Fast"}[x],
+        horizontal=True)
+
     if st.button("Finalise Profile"):
+        from datetime import datetime, timezone
         final_profile = {
             "source": st.session_state['source'],
-            "skills": confirmed_skills,
-            "current_role": {
+            "skills": confirmed_skills,              # 第1层(不动)
+            "current_role": {                        # 第2层
                 "title": prof["current_role"]["title"],
                 "industry": prof["current_role"]["industry"],
                 "years_experience": prof["current_role"].get("years_experience", ""),
                 "tasks": confirmed_tasks
             },
-            "meta": {"language": "en", "created_at": "2026-10-23T20:29:00Z"}
+            "goals": {                               # 第3层
+                "mode": mode,
+                "interests": interests,
+                "sdg_importance": sdg_importance
+            },
+            "constraints": {                         # 第4层
+                "hours_per_week": hours,
+                "budget": budget,
+                "timeline_months": timeline,
+                "language": language
+            },
+            "risk_preference": risk,                 # 第5层
+            "scenario_focus": scenario,
+            "meta": {"created_at": datetime.now(timezone.utc).isoformat()}
         }
+        st.session_state['final_profile'] = final_profile
         st.json(final_profile)
-        st.download_button("Download JSON", data=json.dumps(final_profile, indent=2), file_name="skills_profile.json")
+        st.download_button("Download JSON", data=json.dumps(final_profile, indent=2),
+                           file_name="skills_profile.json")
