@@ -449,7 +449,7 @@ def render_step_nav(step, next_label=None):
 
 
 # ---------- Setup step 1: starting point ----------
-START_BOX_HEIGHT = 560   # both start boxes use the same height so they line up
+START_BOX_HEIGHT = 560   # both start boxes are at least this tall so they line up (no scrolling)
 
 
 def set_start_mode(mode):
@@ -538,16 +538,19 @@ def start_box_saved():
 
 
 def page_start():
+    st.markdown(f"<style>.st-key-card_start_left, .st-key-card_start_saved "
+                f"{{ min-height: {START_BOX_HEIGHT}px; overflow: visible !important; }}</style>",
+                unsafe_allow_html=True)
     st.subheader("Where are you starting from?")
     left, right = st.columns(2)
     with left:
-        with st.container(border=True, height=START_BOX_HEIGHT, key="card_start_left"):
+        with st.container(border=True, key="card_start_left"):
             if st.session_state.get("start_mode", "cv") == "cv":
                 start_box_cv()
             else:
                 start_box_role()
     with right:
-        with st.container(border=True, height=START_BOX_HEIGHT, key="card_start_saved"):
+        with st.container(border=True, key="card_start_saved"):
             start_box_saved()
 
 
