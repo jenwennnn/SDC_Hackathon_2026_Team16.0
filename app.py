@@ -34,6 +34,7 @@ import results_page as rp
 import signals_logic as sl
 import trend_bridge as tb
 import signals_views as sv
+import fx
 import intro
 import theme
 
@@ -364,19 +365,11 @@ def batch_choices():
 
 def render_header(step):
     theme.hero()
-    prev = st.session_state.get("nav_prev_step", step)
-    st.session_state["nav_prev_step"] = step
-    theme.nav_capsule_style(step - 1, len(STEPS), step - prev)
-    with st.container(key="navtrack"):
-        cols = st.columns(len(STEPS), gap=None)
-        for i, (col, name) in enumerate(zip(cols, STEPS), start=1):
-            label = f"{i}. {name}"
-            if i == step:
-                col.button(label, key=f"stepbar_{i}", type="primary", width="stretch")
-            else:
-                col.button(label, key=f"stepbar_{i}", width="stretch",
-                           disabled=not reachable(i), on_click=jump, args=(i,))
     st.progress(step / len(STEPS))
+    fx.render_dock(STEPS, step, reachable, jump)
+    fx.bridge([{"n": i, "label": name, "key": f"dock_{i}",
+                "enabled": i == step or reachable(i), "current": i == step}
+               for i, name in enumerate(STEPS, start=1)])
 
 
 def _batch_panel(profile, scenario, ids, batch_id):
@@ -773,7 +766,6 @@ def render_footer():
 init_state()
 if not intro.done():
     intro.render()
-    render_footer()
     st.stop()
 step = st.session_state["step"]
 

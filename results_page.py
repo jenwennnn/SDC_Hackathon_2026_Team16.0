@@ -30,6 +30,7 @@ import signals_logic as sl
 import signals_views as sv
 import trend_bridge as tb
 import fairness
+import fx
 from matcher import DEFAULT_OUTLOOK_WEIGHT, load_roles, match_roles, rank_by_future_fit
 from pathway import build_pathway, load_courses
 
@@ -443,8 +444,8 @@ def _sdg_line(title):
     return text + ". Team mapping, an estimate."
 
 
-def _plan_details(profile, r, plan, start_over):
-    """Everything that is not the plan itself, in one pop-up."""
+def _plan_details(r, plan):
+    """Skills without a course and the plan's assumptions."""
     if plan["uncovered"]:
         st.markdown(f"**{len(plan['uncovered'])} essential skills have no course in our list yet**")
         st.write(", ".join(g["name"] for g in plan["uncovered"][:30]))
@@ -453,7 +454,10 @@ def _plan_details(profile, r, plan, start_over):
     for a in plan["assumptions"]:
         st.markdown(f"- {a}")
 
-    st.markdown("**Sustainable Development Goals**")
+
+def _sdg_details(r):
+    """SDG links of the role and of reskilling itself."""
+    st.markdown(f"**This role: {r['title']}**")
     tags = _sdg_tags(r["title"])
     if tags:
         for t in tags:
@@ -462,36 +466,25 @@ def _plan_details(profile, r, plan, start_over):
             st.caption(f"Target: {t['target_summary']} Why this role: {t['why']}")
     else:
         st.write("No SDG link recorded for this role yet.")
+    st.markdown("**Following a reskilling plan**")
     for p in _sdg().get("pathway_sdgs", []):
         st.write(f"SDG {p['sdg']}: {p['sdg_name']} - target {p['target']} ({p['link_strength']} link)")
         st.caption(f"Target: {p['target_summary']} Why: {p['why']}")
     st.caption("SDG links are a team mapping and are estimates. Source: UN Sustainable "
                "Development Goals, https://sdgs.un.org/goals")
 
-    st.markdown("**Save your profile for next time**")
-    st.caption("Download your profile file and upload it on the first step next time. "
-               "It holds no name, age, gender or contact details, and we do not store it.")
-    meta = profile.get("meta") or {}
-    updated = meta.get("updated_at") or meta.get("created_at", "")
-    if updated:
-        st.caption(f"Last saved change: {updated[:10]}")
-    c1, c2 = st.columns(2)
-    c1.download_button("Download my profile (JSON)", icon=":material/download:",
-                       data=json.dumps(profile, indent=2, ensure_ascii=True),
-                       file_name="shifthappens_profile.json", width="stretch")
-    if start_over is not None and c2.button("Start over", key="plan_start_over",
-                                            icon=":material/restart_alt:", width="stretch"):
-        start_over()
-        st.rerun()
-    with st.expander("Show raw profile data"):
-        st.json(profile)
+
+
+def _raw_profile(profile):
+    st.caption("This is everything your profile file holds. No name, age, gender or "
+               "contact details.")
+    st.json(profile)
 
 
 def render_plan(profile, scenario, batch_id=None, start_over=None):
     results, _ = compute_matches(profile, scenario, batch_id)
     titles = [r["title"] for r in results]
     target = target_title(results)
-    r = results[titles.index(target)]
 
     courses = _courses()
     if not courses:
@@ -499,8 +492,21 @@ def render_plan(profile, scenario, batch_id=None, start_over=None):
                 "The plan appears here once courses are added.")
         return
 
-    st.markdown(f"#### Your learning plan for {target}")
-    st.caption("The plan follows your target role. To change it, open another role in step 4.")
+    if st.session_state.get("plan_role") not in titles:
+        st.session_state["plan_role"] = target
+    with st.container(key="card_plan_role"):
+        head, choose, pin = st.columns([1.5, 2.6, 1.2], vertical_alignment="center")
+        head.markdown("#### Your learning plan for")
+        with choose:
+            pick = st.selectbox("Plan for role", titles, key="plan_role",
+                                format_func=lambda t: t + ("  (your target)" if t == target else ""),
+                                label_visibility="collapsed")
+        with pin:
+            if pick != target:
+                st.button("Set as my target", key="plan_pin", icon=":material/flag:",
+                          width="stretch", on_click=_set_target, args=(pick,))
+        st.caption("Pick any role to see its plan. Roles are listed in your step 4 ranking order.")
+    r = results[titles.index(pick)]
     cons = profile.get("constraints", {})
     c1, c2, c3 = st.columns(3)
     with c1:
@@ -516,12 +522,17 @@ def render_plan(profile, scenario, batch_id=None, start_over=None):
     plan = build_pathway(r, profile["constraints"], courses)
 
     with st.container(border=True, key="card_plan"):
-        m1, m2, m3 = st.columns(3)
-        m1.metric("Skill gaps closed", f"{plan['covered_count']} of {plan['target_count']}")
         weeks = plan["total_weeks"]
-        m2.metric("Time needed", f"{weeks} week" + ("" if weeks == 1 else "s"),
-                  help=f"{plan['total_hours']:g} study hours at {hours} hours per week")
-        m3.metric("Cost", f"RM {plan['total_cost_myr']:g}")
+        st.markdown(
+            '<div class="v-stats">'
+            f'<div class="v-stat"><div class="t">Skill gaps closed</div><div class="n">'
+            f'{fx.roll("plan_cov", plan["covered_count"])} of {plan["target_count"]}</div></div>'
+            f'<div class="v-stat"><div class="t">Time needed</div><div class="n">'
+            f'{fx.roll("plan_weeks", weeks)} week{"" if weeks == 1 else "s"}</div>'
+            f'<div class="t">{plan["total_hours"]:g} study hours at {hours} h per week</div></div>'
+            f'<div class="v-stat"><div class="t">Cost</div><div class="n">'
+            f'RM {fx.roll("plan_cost", plan["total_cost_myr"])}</div></div>'
+            '</div>', unsafe_allow_html=True)
         if plan["steps"]:
             if plan["within_timeline"]:
                 st.info(f"Fits your {months}-month timeline. It closes {plan['covered_count']} of "
@@ -537,6 +548,19 @@ def render_plan(profile, scenario, batch_id=None, start_over=None):
         st.caption("Estimates, not guarantees. You decide what to study and when. "
                    + _sdg_line(r["title"]))
 
-    if st.button("Plan details, SDG links and save my profile", key="plan_more",
-                 icon=":material/more_horiz:", width="stretch"):
-        _show_dialog("Plan details", _plan_details, profile, r, plan, start_over)
+    c1, c2 = st.columns(2)
+    if c1.button("Plan details", key="plan_more", icon=":material/info:", width="stretch"):
+        _show_dialog("Plan details", _plan_details, r, plan)
+    if c2.button("SDG links", key="plan_sdg", icon=":material/public:", width="stretch"):
+        _show_dialog("Sustainable Development Goals", _sdg_details, r)
+    d1, d2, d3 = st.columns(3)
+    d1.download_button("Download my profile (JSON)", icon=":material/download:",
+                       data=json.dumps(profile, indent=2, ensure_ascii=True),
+                       file_name="shifthappens_profile.json", key="plan_download",
+                       width="stretch")
+    if d2.button("Show raw JSON", key="plan_raw", icon=":material/data_object:", width="stretch"):
+        _show_dialog("Your profile file (raw JSON)", _raw_profile, profile)
+    d3.button("Start over", key="plan_start_over", icon=":material/restart_alt:",
+              width="stretch", on_click=start_over, disabled=start_over is None)
+    st.caption("Your profile file holds no name, age, gender or contact details, and we do "
+               "not store it. Upload it on step 1 next time to continue.")
