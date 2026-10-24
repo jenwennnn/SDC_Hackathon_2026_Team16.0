@@ -3,6 +3,9 @@ results_page.py - match results display
 
 Input: profile (the final_profile built by app.py)
 Output: draws top-3 role cards, then a detail view for any role the user picks.
+Trend: trend signals (data/signals.json) are turned into per-skill scores via
+trend_bridge.py and fed into the matcher. The user picks an AI progress
+scenario (steady / rapid), which changes how strongly trend counts.
 Usage (inside app.py):
     from results_page import render_results
     render_results(st.session_state['final_profile'])
@@ -11,6 +14,8 @@ import json
 
 import pandas as pd
 import streamlit as st
+import signals_logic as sl
+import trend_bridge as tb
 from matcher import load_roles, match_roles
 from pathway import build_pathway, load_courses
 
@@ -29,6 +34,65 @@ def _courses():
 def _sdg():
     with open("data/sdg_mapping.json", "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+@st.cache_data
+def _trend_inputs():
+    """Return (trend, info) from the latest signal batch, or (None, error text)."""
+    try:
+        signals = sl.load_signals()
+        skill_map = tb.load_skill_map()
+    except FileNotFoundError as e:
+        return None, f"Trend data file missing: {e.filename}"
+    except ValueError as e:
+        return None, str(e)
+    info = tb.trend_info(signals)
+    info["skill_map_status"] = skill_map.get("status", "")
+    info["mapped_count"] = skill_map.get("mapped_count", 0)
+    info["skill_count"] = skill_map.get("skill_count", 0)
+    return tb.build_trend(signals, skill_map), info
+
+
+def _outlook_text(value):
+    if value is None:
+        return "no trend data"
+    return f"{tb.trend_label(value)} ({value:+.2f})"
+
+
+def _render_trend_box(info, scenario):
+    synthetic = " Synthetic demo data: values are invented, not real statistics." if info["is_synthetic"] else ""
+    st.info(
+        f"**Trend signals connected** | Source: {info['source_name']} | "
+        f"Data date: {info['data_date']} (batch {info['batch_id']}).{synthetic}  \n"
+        f"Scenario: **{tb.SCENARIO_LABELS[scenario]}**. Skills whose market demand is rising "
+        f"count more in your overlap score, falling skills count less "
+        f"(trend strength {tb.SCENARIO_STRENGTH[scenario]}). "
+        "This is an estimate to explore uncertainty, not a forecast."
+    )
+
+
+def _render_scenario_compare(profile, trend):
+    """Same roles under no trend, steady and rapid, so the user sees what changes."""
+    base = {r["title"]: r for r in match_roles(profile, _roles())}
+    per_scn = {}
+    for scn in ("steady", "rapid"):
+        res = match_roles(profile, _roles(), trend=trend, strength=tb.SCENARIO_STRENGTH[scn])
+        per_scn[scn] = {r["title"]: (i + 1, r) for i, r in enumerate(res)}
+    rows = []
+    for title, (rank_s, r_s) in sorted(per_scn["steady"].items(), key=lambda kv: kv[1][0]):
+        rank_r, r_r = per_scn["rapid"][title]
+        rows.append({
+            "Role": title,
+            "Rank (steady)": rank_s,
+            "Rank (rapid)": rank_r,
+            "Overlap without trend %": base[title]["match_score"],
+            "Overlap steady %": r_s["match_score"],
+            "Overlap rapid %": r_r["match_score"],
+            "Role outlook": _outlook_text(r_s["trend_outlook"]),
+        })
+    st.dataframe(pd.DataFrame(rows), hide_index=True)
+    st.caption("Role outlook = average demand trend of the role's skills that have trend data. "
+               "It is shown for context and does not change the ranking by itself.")
 
 
 def _sdg_tags(title):
@@ -50,10 +114,24 @@ def render_results(profile, trend=None):
         "support your own decision, not a prediction or a hiring verdict. "
         "A low overlap is normal: it shows how far a role is from where you are today."
     )
+    info = None
     if trend is None:
-        st.caption("Trend signals: not connected yet (matches are shown without trend weighting).")
+        trend, info = _trend_inputs()
 
-    results = match_roles(profile, _roles(), trend=trend)
+    scenario = "steady"
+    if trend is None:
+        st.warning(f"Trend signals not available ({info}). Matches are shown without trend weighting.")
+        results = match_roles(profile, _roles())
+    else:
+        default_scn = sl.normalize_scenario(profile.get("scenario_focus", "both"))[0]
+        scenario = st.radio(
+            "AI progress scenario", ["steady", "rapid"], horizontal=True, key="match_scenario",
+            index=["steady", "rapid"].index(default_scn),
+            format_func=lambda x: tb.SCENARIO_LABELS[x])
+        if isinstance(info, dict):
+            _render_trend_box(info, scenario)
+        results = match_roles(profile, _roles(), trend=trend,
+                              strength=tb.SCENARIO_STRENGTH[scenario])
 
     # ---- Top 3 cards ----
     top = results[:3]
@@ -64,9 +142,15 @@ def render_results(profile, trend=None):
             st.markdown(f"**{r['title']}**")
             st.metric("Essential skills you meet", f"{r['essential_have']}/{r['essential_total']}")
             st.caption(f"Skill overlap {r['match_score']}%")
+            if trend is not None:
+                st.caption(f"Role outlook: {_outlook_text(r['trend_outlook'])}")
             tags = _sdg_tags(r["title"])
             if tags:
                 st.caption("SDG: " + ", ".join(f"{t['sdg']} (target {t['target']})" for t in tags))
+
+    if trend is not None:
+        with st.expander("Compare scenarios: how trend changes your ranking"):
+            _render_scenario_compare(profile, trend)
 
     # ---- Detail view ----
     st.markdown("#### Explore a role")
@@ -89,8 +173,11 @@ def render_results(profile, trend=None):
                     "Skill": g["name"],
                     "Your level": g["your_level"],
                     "Role needs": g["required_level"],
+                    "Demand trend": tb.trend_label(g.get("trend")) if trend is not None else "not connected",
                 } for g in gaps])
                 st.dataframe(df, hide_index=True)
+                if trend is not None:
+                    st.caption("Order: biggest gap first, with rising-demand skills moved up.")
             else:
                 st.write("No gaps. You meet every skill for this role.")
     with right:
@@ -133,8 +220,9 @@ def render_results(profile, trend=None):
 
         if plan["steps"]:
             if plan["within_timeline"]:
-                st.success(f"This plan fits your {months}-month target "
-                           f"(covers {plan['covered_count']} of {plan['target_count']} essential skill gaps).")
+                st.info(f"The listed courses fit your {months}-month target, but they cover only "
+                        f"{plan['covered_count']} of {plan['target_count']} essential skill gaps "
+                        f"for this role. The other gaps have no checked course yet.")
             else:
                 st.warning(f"This plan needs about {plan['total_weeks']} weeks, more than your "
                            f"{months}-month target (about {plan['timeline_weeks']} weeks). "
@@ -185,6 +273,12 @@ def render_results(profile, trend=None):
         with st.expander("About this role (from ESCO)"):
             st.write(desc)
 
+    if isinstance(info, dict):
+        st.caption(
+            f"Trend per skill comes from a team mapping of ESCO skills to task types "
+            f"({info['mapped_count']} of {info['skill_count']} skills mapped, status: "
+            f"{info['skill_map_status']}). Unmapped skills get no trend adjustment. "
+            f"Scenario strengths are a team assumption.")
     st.caption(
         "Required levels are a team assumption (essential = 3, optional = 2); "
         "ESCO does not publish proficiency levels. "
